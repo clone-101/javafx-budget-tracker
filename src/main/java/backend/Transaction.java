@@ -133,12 +133,26 @@ public class Transaction {
 				catStr);
 	} // toString
 
+	// static methods
+
 	// print all
-	public static void printAll() {
+	// public static void printAll() {
+	// for (Transaction tr : transactions) {
+	// if (tr != null)
+	// System.out.println(tr);
+	// }
+	// }
+
+	// returns array of all transactions toString
+	public static String[] TransactionStrArr() {
+		String[] arr = new String[trCount];
+		int i = 0;
 		for (Transaction tr : transactions) {
-			if (tr != null)
-				System.out.println(tr);
+			if (tr != null) {
+				arr[i++] = tr.toString();
+			}
 		}
+		return arr;
 	}
 
 	// file IO
@@ -163,7 +177,6 @@ public class Transaction {
 		}
 		br.close();
 	}
-	// static methods
 
 	// ordered insertion method for transaction PFA
 	private static void trInsert(int trCount, Transaction[] tr, Transaction element) {

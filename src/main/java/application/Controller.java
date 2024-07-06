@@ -8,11 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ListView;
 
 public class Controller implements Initializable {
 
     @FXML
     private BarChart<String, Integer> barChart;
+    @FXML
+    private ListView<String> trList = new ListView<String>();
 
     @FXML
     private void switchToPreferences() throws IOException {
@@ -43,6 +46,17 @@ public class Controller implements Initializable {
         series2.getData().add(new XYChart.Data("Mar", 748));
 
         barChart.getData().addAll(series1, series2);
+
+        // temp list stuff
+        try {
+            backend.Transaction.readFile("D:\\Projects\\budget_tracker_fx\\src\\main\\java\\application\\SIMPLII.csv",
+                    1,
+                    3, 2, 4, 0);
+            String[] list = backend.Transaction.TransactionStrArr();
+            trList.getItems().addAll(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
