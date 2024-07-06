@@ -41,6 +41,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -78,7 +79,7 @@
     </MenuBar>
       <HBox prefHeight="191.0" prefWidth="900.0">
          <children>
-            <BarChart fx:id="chart" prefHeight="212.0" prefWidth="694.0">
+            <BarChart fx:id="barChart" barGap="1.0" legendSide="TOP" prefHeight="191.0" prefWidth="711.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -86,7 +87,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <FlowPane alignment="TOP_CENTER" orientation="VERTICAL" prefHeight="212.0" prefWidth="266.0">
+            <FlowPane alignment="TOP_CENTER" orientation="VERTICAL" prefHeight="191.0" prefWidth="195.0">
                <children>
                   <Label text="Date Range">
                      <font>
@@ -97,11 +98,7 @@
                   <DatePicker />
                   <Label text="End" />
                   <DatePicker />
-                  <Button mnemonicParsing="false" text="Apply">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
+                  <Button mnemonicParsing="false" text="Apply" textAlignment="CENTER" />
                </children>
             </FlowPane>
          </children>
@@ -133,7 +130,17 @@
                   </FlowPane>
                </children>
             </FlowPane>
-            <FlowPane prefHeight="234.0" prefWidth="350.0" />
+            <FlowPane orientation="VERTICAL" prefHeight="234.0" prefWidth="350.0">
+               <children>
+                  <FlowPane prefHeight="28.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="43.0" text="search:" />
+                        <TextField prefHeight="28.0" prefWidth="154.0" />
+                     </children>
+                  </FlowPane>
+                  <ListView prefHeight="206.0" prefWidth="349.0" />
+               </children>
+            </FlowPane>
             <PieChart prefHeight="234.0" prefWidth="289.0" title="This Month" />
          </children>
       </HBox>

@@ -12,7 +12,7 @@ import javafx.scene.chart.XYChart;
 public class Controller implements Initializable {
 
     @FXML
-    private BarChart<String, Integer> chart;
+    private BarChart<String, Integer> barChart;
 
     @FXML
     private void switchToPreferences() throws IOException {
@@ -42,7 +42,7 @@ public class Controller implements Initializable {
         series2.getData().add(new XYChart.Data("Feb", 95));
         series2.getData().add(new XYChart.Data("Mar", 748));
 
-        chart.getData().addAll(series1, series2);
+        barChart.getData().addAll(series1, series2);
     }
 
 }
