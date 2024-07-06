@@ -15,8 +15,8 @@ public class Controller implements Initializable {
     private BarChart<String, Integer> chart;
 
     @FXML
-    private void switchToCategories() throws IOException {
-        App.setRoot("Categories");
+    private void switchToPreferences() throws IOException {
+        App.setRoot("Preferences");
     }
 
     @FXML

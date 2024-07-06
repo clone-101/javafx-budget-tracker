@@ -26,7 +26,7 @@ public class Transaction {
 			String date)
 			throws Exception {
 
-		// description
+		// always toLowerCase()
 		this.description = description.trim().toLowerCase();
 
 		// funds in/out
@@ -40,13 +40,13 @@ public class Transaction {
 		} catch (Exception e) {
 			this.fundsOut = 0;
 		}
-		// account
+		// no use for account number
 		// this.account = account;
 
 		// date
 		this.date = f.parse(date);
 
-		// resize transaction array
+		// resize transaction PFA
 		if (trCount >= transactions.length - 1) {
 			Transaction[] temp = new Transaction[transactions.length * 2];
 			for (int i = 0; i < transactions.length; i++) {
