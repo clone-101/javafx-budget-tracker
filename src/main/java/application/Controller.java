@@ -10,8 +10,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 public class Controller implements Initializable {
-    @FXML
 
+    @FXML
     private BarChart<String, Integer> chart;
 
     @FXML
