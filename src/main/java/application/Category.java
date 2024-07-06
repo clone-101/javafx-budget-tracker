@@ -52,7 +52,7 @@ public class Category {
 		return false;
 	}
 
-	// creates category if it doesnt exist
+	// creates category if it doesn't exist
 	public static Category get(String name) {
 		name = name.toLowerCase().trim();
 		for (Category c : categories) {
