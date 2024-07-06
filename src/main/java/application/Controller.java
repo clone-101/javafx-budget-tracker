@@ -24,10 +24,11 @@ public class Controller implements Initializable {
         App.setRoot("Main");
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        XYChart.Series data = new XYChart.Series<>();
+        // XYChart.Series data = new XYChart.Series<>();
         // provide data
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Funds In");
