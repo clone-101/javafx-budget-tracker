@@ -7,12 +7,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 
 public class Controller implements Initializable {
 
     @FXML
-    private BarChart<String, Integer> barChart;
+    private BarChart<String, Double> barChart;
     @FXML
     private ListView<String> trList = new ListView<String>();
 
@@ -30,29 +31,15 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // temporary running of import on SIMPLII.csv
         try {
-            backend.Transaction.readFile("D:\\Projects\\budget_tracker_fx\\src\\main\\java\\application\\SIMPLII.csv",
-                    1, 3, 2, 4, 0);
+            test.Test.initializeCSV();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // XYChart.Series data = new XYChart.Series<>();
-        // provide data
-        // XYChart.Series series1 = new XYChart.Series();
-        // series1.setName("Funds In");
 
-        // XYChart.Series series2 = new XYChart.Series();
-        // series2.setName("Funds Out");
-
-        // series1.getData().add(new XYChart.Data("Jan", 2000));
-        // series1.getData().add(new XYChart.Data("Feb", 100));
-        // series1.getData().add(new XYChart.Data("Mar", 1000));
-
-        // series2.getData().add(new XYChart.Data("Jan", 450));
-        // series2.getData().add(new XYChart.Data("Feb", 95));
-        // series2.getData().add(new XYChart.Data("Mar", 748));
-
-        // barChart.getData().addAll(series1, series2);
+        // gets series from backend.Charts 0: fundsIn, 1: fundsOut
+        XYChart.Series[] series = backend.Charts.getBarSeries();
+        barChart.getData().addAll(series[0], series[1]);
 
         // listView
         String[] list = backend.Transaction.TransactionStrArr();

@@ -2,8 +2,7 @@ package test;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
-		backend.Transaction.readFile("D:\\Projects\\budget_tracker_fx\\src\\main\\java\\application\\SIMPLII.csv", 1, 3,
-				2, 4, 0);
+		initializeCSV();
 		// Category cat = new Category("food");
 		// backend.Transaction.printAll();
 
@@ -13,6 +12,16 @@ public class Test {
 		// double expenses = backend.Transaction.getExpenses(start, end);
 		// System.out.println(expenses);
 
-		backend.Charts.getDates();
+	}
+
+	public static void initializeCSV() {
+		try {
+			backend.Transaction.readFile("D:\\Projects\\budget_tracker_fx\\src\\main\\java\\application\\SIMPLII.csv",
+					1, 3,
+					2, 4, 0);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

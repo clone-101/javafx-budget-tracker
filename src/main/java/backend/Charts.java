@@ -11,26 +11,53 @@ import javafx.scene.chart.XYChart;
 
 public class Charts {
 	// eventually will not be hardcoded
-	private static int numMonths = 12;
+	private static int NUM_MONTHS = 12;
 
-	// barChart
-	public static void getBarChart() {
+	// unfortunate use of global variables :(
+	private static ArrayList<Double> fundsInVals = new ArrayList<>();
+	private static ArrayList<Double> fundsOutVals = new ArrayList<>();
+	private static XYChart.Series fundsIn = new XYChart.Series();
+	private static XYChart.Series fundsOut = new XYChart.Series();
+
+	// public static XYChart.Series getFundsIn() {
+	// return fundsIn;
+	// }
+
+	// public static XYChart.Series getFundsOut() {
+	// return fundsOut;
+	// }
+
+	// ************bar chart***********************
+	public static XYChart.Series[] getBarSeries() {
+
 		// format for yAxis labels
 		SimpleDateFormat f = new SimpleDateFormat("MMM");
+		ArrayList<Date> dates = getDates();
 
-		XYChart.Series fundsIn = new XYChart.Series();
+		// XYChart.Series fundsIn = new XYChart.Series();
 		fundsIn.setName("Funds In");
 
-		XYChart.Series fundsOut = new XYChart.Series();
+		// XYChart.Series fundsOut = new XYChart.Series();
 		fundsOut.setName("Funds Out");
 
-		fundsIn.getData().add(new XYChart.Data("Jan", 2000));
+		// gets funds from backend.Transaction.transactions
+		getFunds();
 
-	}
+		// assigns values to fundsIn and fundsOut series
+		for (int i = 0; i < dates.size() - 1; i++) {
+			fundsIn.getData().add(new XYChart.Data(f.format(dates.get(i)).toString(), fundsInVals.get(i)));
+			fundsOut.getData().add(new XYChart.Data(f.format(dates.get(i)).toString(), fundsOutVals.get(i)));
+		}
 
+		// returns both series in an array
+		XYChart.Series[] series = { fundsIn, fundsOut };
+		return series;
+	} // getBarSeries()
+
+	// gets ArrayList of dates for barChart
 	public static ArrayList<Date> getDates() {
 
-		// calendar arithmatic to get the first day of the last 12 months
+		// calendar arithmetic to get the first day of the last 12 months
 		Calendar calendar = Calendar.getInstance();
 		ArrayList<Date> months = new ArrayList<>();
 		months.add(new Date());
@@ -42,7 +69,7 @@ public class Charts {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 
-		for (int i = 0; i < numMonths; i++) {
+		for (int i = 0; i < NUM_MONTHS; i++) {
 			months.add(0, calendar.getTime());
 			calendar.add(Calendar.MONTH, -1);
 		}
@@ -50,4 +77,29 @@ public class Charts {
 		return months;
 
 	}
+
+	// gets funds by month for barChart
+	public static void getFunds() {
+		ArrayList<Date> dates = getDates();
+
+		// temporary calendar to fix overlap of first day
+		Calendar temp = Calendar.getInstance();
+
+		// gets total funds in by month
+		for (int i = 0; i < dates.size() - 1; i++) {
+
+			// fix for first day overlap
+			temp.setTime(dates.get(i + 1));
+			temp.set(Calendar.MILLISECOND, -1);
+
+			// set start/end dates
+			Date start = dates.get(i), end = temp.getTime();
+
+			// gets total fundsIn/fundsOut for transactions
+			fundsInVals.add(backend.Transaction.getIncome(start, end));
+			fundsOutVals.add(backend.Transaction.getExpenses(start, end));
+		}
+	}
+
+	// ******************pie chart***************************
 }
