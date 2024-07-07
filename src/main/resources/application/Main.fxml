@@ -54,7 +54,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="492.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<VBox prefHeight="547.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -76,7 +76,7 @@
         </Menu>
       </menus>
     </MenuBar>
-      <HBox prefHeight="191.0" prefWidth="900.0">
+      <HBox prefHeight="247.0" prefWidth="900.0">
          <children>
             <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="191.0" prefWidth="900.0" title="Last 12 months">
               <xAxis>
@@ -115,7 +115,7 @@
                   </FlowPane>
                </children>
             </FlowPane>
-            <FlowPane orientation="VERTICAL" prefHeight="234.0" prefWidth="350.0">
+            <FlowPane orientation="VERTICAL" prefHeight="234.0" prefWidth="319.0">
                <children>
                   <FlowPane prefHeight="28.0" prefWidth="200.0">
                      <children>
@@ -123,10 +123,10 @@
                         <TextField prefHeight="28.0" prefWidth="154.0" />
                      </children>
                   </FlowPane>
-                  <ListView fx:id="trList" editable="true" prefHeight="206.0" prefWidth="349.0" />
+                  <ListView fx:id="trList" editable="true" prefHeight="206.0" prefWidth="318.0" />
                </children>
             </FlowPane>
-            <PieChart prefHeight="234.0" prefWidth="289.0" title="This Month" />
+            <PieChart prefHeight="234.0" prefWidth="355.0" title="This Month" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
