@@ -47,7 +47,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -61,13 +60,13 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="Upload CSV" />
+            <MenuItem fx:id="uploadCSV" mnemonicParsing="false" text="Upload CSV" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Download CSV" />
+            <MenuItem fx:id="downloadCSV" mnemonicParsing="false" text="Download CSV" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences" />
+            <MenuItem fx:id="preferences" mnemonicParsing="false" text="Preferences" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
@@ -100,13 +99,13 @@
                      </font>
                   </Label>
                   <Label text="Date" />
-                  <DatePicker prefHeight="25.0" prefWidth="207.0" />
+                  <DatePicker fx:id="trDate" prefHeight="25.0" prefWidth="207.0" />
                   <Label text="Description" />
-                  <TextField prefWidth="175.0" />
+                  <TextField fx:id="trDescription" prefWidth="175.0" />
                   <Label text="Funds" />
-                  <Spinner prefHeight="25.0" prefWidth="208.0" />
+                  <TextField fx:id="trFunds" />
                   <Label text="Category" />
-                  <ComboBox prefHeight="25.0" prefWidth="208.0" />
+                  <ComboBox fx:id="trCategory" prefHeight="25.0" prefWidth="208.0" />
                   <FlowPane alignment="CENTER" prefHeight="34.0" prefWidth="200.0">
                      <children>
                         <RadioButton mnemonicParsing="false" text="Income" />
@@ -132,9 +131,9 @@
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-            <Button mnemonicParsing="false" text="Preferences" />
+            <Button fx:id="preferences" mnemonicParsing="false" text="Preferences" />
         <Pane prefHeight="35.0" prefWidth="715.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="88.0" text="upload CSV" />
+            <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="24.0" prefWidth="88.0" text="upload CSV" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
