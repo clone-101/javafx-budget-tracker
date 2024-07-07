@@ -48,15 +48,16 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="547.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<VBox prefHeight="547.0" prefWidth="900.0" stylesheets="@../../java/application/application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -78,13 +79,16 @@
     </MenuBar>
       <HBox prefHeight="247.0" prefWidth="900.0">
          <children>
-            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="191.0" prefWidth="900.0" title="Last 12 months">
+            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="191.0" prefWidth="900.0" title="Last 12 months" verticalGridLinesVisible="false">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis side="LEFT" />
               </yAxis>
+               <effect>
+                  <Glow />
+               </effect>
             </BarChart>
          </children>
       </HBox>
@@ -110,7 +114,7 @@
                      <children>
                         <RadioButton mnemonicParsing="false" text="Income" />
                         <RadioButton mnemonicParsing="false" text="Expense" />
-                      <Button mnemonicParsing="false" text="Save" />
+                      <Button mnemonicParsing="false" text="Save" textFill="#fcfcfc" />
                      </children>
                   </FlowPane>
                </children>
@@ -131,9 +135,9 @@
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-            <Button fx:id="preferences" mnemonicParsing="false" text="Preferences" />
-        <Pane prefHeight="35.0" prefWidth="715.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="24.0" prefWidth="88.0" text="upload CSV" />
+            <Button fx:id="preferences" mnemonicParsing="false" prefHeight="24.0" prefWidth="113.0" text="Preferences" />
+        <Pane prefHeight="35.0" prefWidth="361.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="24.0" prefWidth="120.0" text="upload CSV" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
