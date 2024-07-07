@@ -79,7 +79,7 @@
     </MenuBar>
       <HBox prefHeight="191.0" prefWidth="900.0">
          <children>
-            <BarChart fx:id="barChart" barGap="1.0" legendSide="TOP" prefHeight="191.0" prefWidth="711.0">
+            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="191.0" prefWidth="900.0" title="Last 12 months">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -87,20 +87,6 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <FlowPane alignment="TOP_CENTER" orientation="VERTICAL" prefHeight="191.0" prefWidth="195.0">
-               <children>
-                  <Label text="Date Range">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="Start" />
-                  <DatePicker />
-                  <Label text="End" />
-                  <DatePicker />
-                  <Button mnemonicParsing="false" text="Apply" textAlignment="CENTER" />
-               </children>
-            </FlowPane>
          </children>
       </HBox>
       <HBox prefHeight="234.0" prefWidth="900.0">

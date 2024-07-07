@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 
 public class Controller implements Initializable {
@@ -27,36 +26,38 @@ public class Controller implements Initializable {
         App.setRoot("Main");
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        // XYChart.Series data = new XYChart.Series<>();
-        // provide data
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Funds In");
-        series1.getData().add(new XYChart.Data("Jan", 2000));
-        series1.getData().add(new XYChart.Data("Feb", 100));
-        series1.getData().add(new XYChart.Data("Mar", 1000));
-
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Funds Out");
-        series2.getData().add(new XYChart.Data("Jan", 450));
-        series2.getData().add(new XYChart.Data("Feb", 95));
-        series2.getData().add(new XYChart.Data("Mar", 748));
-
-        barChart.getData().addAll(series1, series2);
-
-        // temp list stuff
+        // temporary running of import on SIMPLII.csv
         try {
             backend.Transaction.readFile("D:\\Projects\\budget_tracker_fx\\src\\main\\java\\application\\SIMPLII.csv",
-                    1,
-                    3, 2, 4, 0);
-            String[] list = backend.Transaction.TransactionStrArr();
-            trList.getItems().addAll(list);
+                    1, 3, 2, 4, 0);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // XYChart.Series data = new XYChart.Series<>();
+        // provide data
+        // XYChart.Series series1 = new XYChart.Series();
+        // series1.setName("Funds In");
+
+        // XYChart.Series series2 = new XYChart.Series();
+        // series2.setName("Funds Out");
+
+        // series1.getData().add(new XYChart.Data("Jan", 2000));
+        // series1.getData().add(new XYChart.Data("Feb", 100));
+        // series1.getData().add(new XYChart.Data("Mar", 1000));
+
+        // series2.getData().add(new XYChart.Data("Jan", 450));
+        // series2.getData().add(new XYChart.Data("Feb", 95));
+        // series2.getData().add(new XYChart.Data("Mar", 748));
+
+        // barChart.getData().addAll(series1, series2);
+
+        // listView
+        String[] list = backend.Transaction.TransactionStrArr();
+        trList.getItems().addAll(list);
+
     }
 
 }

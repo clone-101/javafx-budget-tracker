@@ -129,8 +129,7 @@ public class Transaction {
 		else
 			catStr = category.toString();
 
-		return String.format("%s | funds: %.2f | date: %s, | category: %s", description, funds, f.format(date),
-				catStr);
+		return String.format("%s | %.2f | %s", catStr, funds, f.format(date));
 	} // toString
 
 	// static methods
