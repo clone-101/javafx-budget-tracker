@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -16,6 +17,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Main"));
         // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("top_left.png")));
         stage.setScene(scene);
         stage.show();
     }
