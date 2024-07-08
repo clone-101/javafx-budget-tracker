@@ -54,7 +54,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="547.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<VBox prefHeight="582.0" prefWidth="1026.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <children>
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
@@ -76,9 +76,9 @@
         </Menu>
       </menus>
     </MenuBar>
-      <HBox prefHeight="247.0" prefWidth="900.0">
+      <HBox prefHeight="276.0" prefWidth="1026.0">
          <children>
-            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="191.0" prefWidth="900.0" title="Last 12 months" verticalGridLinesVisible="false">
+            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="275.0" prefWidth="900.0" title="Last 12 months" verticalGridLinesVisible="false">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -117,23 +117,23 @@
             </FlowPane>
             <FlowPane orientation="VERTICAL" prefHeight="234.0" prefWidth="319.0">
                <children>
-                  <FlowPane prefHeight="28.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="43.0" text="search:" />
-                        <TextField prefHeight="28.0" prefWidth="154.0" />
-                     </children>
-                  </FlowPane>
-                  <ListView fx:id="trList" editable="true" prefHeight="206.0" prefWidth="318.0" />
+                  <ListView fx:id="trList" editable="true" prefHeight="235.0" prefWidth="318.0" />
                </children>
             </FlowPane>
             <PieChart prefHeight="234.0" prefWidth="355.0" title="This Month" />
          </children>
       </HBox>
-    <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
+    <HBox id="HBox" alignment="BOTTOM_CENTER" prefHeight="41.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-            <Button fx:id="preferences" mnemonicParsing="false" prefHeight="24.0" prefWidth="113.0" text="Preferences" />
-        <Pane prefHeight="35.0" prefWidth="361.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="24.0" prefWidth="120.0" text="upload CSV" />
+            <Button fx:id="preferences" mnemonicParsing="false" prefHeight="22.0" prefWidth="113.0" text="Preferences" />
+            <Button mnemonicParsing="false" text="About" />
+        <Pane prefHeight="35.0" prefWidth="557.0" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" prefHeight="22.0" prefWidth="120.0" text="download CSV" />
+            <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="22.0" prefWidth="120.0" text="upload CSV">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

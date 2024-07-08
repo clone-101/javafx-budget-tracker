@@ -16,7 +16,8 @@ public class Test {
 
 	public static void initializeCSV() {
 		try {
-			backend.Transaction.readFile("D:\\Projects\\budget_tracker_fx\\src\\main\\java\\application\\SIMPLII.csv",
+			backend.Transaction.readFile(
+					"/Users/sashamorton-salmon/projects/javafx-budget-tracker/src/main/java/application/SIMPLII.csv",
 					1, 3,
 					2, 4, 0);
 

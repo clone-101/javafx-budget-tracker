@@ -1,11 +1,19 @@
 * {
-	-fx-primary-color: rgb(178, 176, 155);
-	-fx-secondary-color: rgb(85, 109, 106);
-	-fx-field-color: #8B8979;
+	-fx-primary-color: #ced4da;
+	-fx-secondary-color: #343A40;
+	-fx-field-color: #adb5bd;
 	-fx-light-grey-color: #d1d1d1;
 	-fx-darkest-grey-color: #323232;
+	-fx-button-color: rgb(85, 109, 106);
 	-fx-button-hover-color: rgb(9, 77, 67);
 	-fx-focus-color: -fx-secondary-color;
+
+	/*
+	rgb(178, 176, 155)
+	rgb(85, 109, 106)
+	#8B8979
+
+	*/
 }
 
 .root {
@@ -13,6 +21,9 @@
 }
 .menu-bar {
 	-fx-background-color: -fx-secondary-color;
+}
+.menu .label {
+	-fx-text-fill: white;
 }
 .label {
 	-fx-text-fill: black;
@@ -43,7 +54,7 @@
     -fx-background-color: transparent;
 }
 .default-color0.chart-bar {
-	-fx-bar-fill: -fx-secondary-color;
+	-fx-bar-fill: -fx-button-color;
 }
 .default-color1.chart-bar {
 	-fx-bar-fill: -fx-button-hover-color;
@@ -67,7 +78,7 @@
 	-fx-padding: 2px 16px;
 	-fx-border: none;
 	-fx-color: #fff;
-	-fx-background-color: -fx-secondary-color;
+	-fx-background-color: -fx-button-color;
 	transition: background-color .17s ease,color .17s ease;
 	 
 }
@@ -132,10 +143,10 @@
 }
 
 .list-cell:even {
-    -fx-background-color: -fx-field-color;
+    -fx-background-color: #E9ECEF;
 }
 .list-cell:odd {
-	-fx-background-color:  #83806f;
+	-fx-background-color:  #F8F9FA;
 }
 
 .list-cell:filled:hover {
@@ -144,7 +155,7 @@
 }
 
 .list-view .scroll-bar:vertical {
-    -fx-background-color: -fx-secondary-color;
+    -fx-background-color: -fx-field-color;
 }
 
 .list-view .increment-button ,.list-view .decrement-button {
@@ -153,7 +164,7 @@
 }
 
 .list-view .scroll-bar:vertical .thumb {
-    -fx-background-color: -fx-button-hover-color;
+    -fx-background-color: -fx-secondary-color;
     -fx-background-insets: 5, 5, 5;
     -fx-background-radius: 5;
 }
