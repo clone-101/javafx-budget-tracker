@@ -19,7 +19,7 @@ public class Test {
 
 	public static void initializeCSV() {
 		String windowsPath = "src\\main\\resources\\application\\SIMPLII.csv";
-		String path = "";
+		String path = "src/main/java/application/SIMPLII.csv";
 		if (System.getProperty("os.name").indexOf("Windows") != -1) {
 			path = windowsPath;
 		}
