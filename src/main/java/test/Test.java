@@ -15,11 +15,13 @@ public class Test {
 	}
 
 	public static void initializeCSV() {
+		String windowsPath = "src\\main\\resources\\application\\SIMPLII.csv";
+		String path = "";
+		if (System.getProperty("os.name").indexOf("Windows") != -1) {
+			path = windowsPath;
+		}
 		try {
-			backend.Transaction.readFile(
-					"/Users/sashamorton-salmon/projects/javafx-budget-tracker/src/main/java/application/SIMPLII.csv",
-					1, 3,
-					2, 4, 0);
+			backend.Transaction.readFile(path, 1, 3, 2, 4, 0);
 
 		} catch (Exception e) {
 			e.printStackTrace();

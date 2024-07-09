@@ -23,7 +23,7 @@ public class Transaction {
 
 	// constructor
 	public Transaction(String description, String category, String fundsIn, String fundsOut, String account,
-			String date)
+			Date date)
 			throws Exception {
 
 		// always toLowerCase()
@@ -44,7 +44,7 @@ public class Transaction {
 		// this.account = account;
 
 		// date
-		this.date = f.parse(date);
+		this.date = date;
 
 		// resize transaction PFA
 		if (trCount >= transactions.length - 1) {
@@ -58,10 +58,11 @@ public class Transaction {
 		trInsert(trCount++, transactions, this);
 
 		// category
-		if (category != null) {
-			this.category = Category.get(category);
-			this.category.add(this);
+		if (category == null) {
+			category = "other";
 		}
+		this.category = Category.get(category);
+		this.category.add(this);
 	} // constructor
 
 	// PFA deletion for transactions array
@@ -168,8 +169,9 @@ public class Transaction {
 			// excludes commas contained in quotes
 			lineArr = tempLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 			try {
+				Date date = f.parse(lineArr[dateID]);
 				new Transaction(lineArr[desID], null, lineArr[fundInID], lineArr[fundOutID], lineArr[accID],
-						lineArr[dateID]);
+						date);
 			} catch (Exception e) {
 			}
 
@@ -207,4 +209,5 @@ public class Transaction {
 		}
 		return sum;
 	}
+
 }

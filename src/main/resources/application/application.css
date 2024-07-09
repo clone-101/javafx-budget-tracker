@@ -7,7 +7,8 @@
 	-fx-button-color: rgb(85, 109, 106);
 	-fx-button-hover-color: rgb(9, 77, 67);
 	-fx-focus-color: -fx-secondary-color;
-
+	-fx-font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
+	-fx-font-weight: normal;
 	/*
 	rgb(178, 176, 155)
 	rgb(85, 109, 106)
@@ -72,7 +73,7 @@
 	-fx-cursor: pointer;
 	-fx-border-radius: 3px;
 	-fx-text-fill: "white";
-	-fx-font-size: 14px;
+	-fx-font-size: 13px;
 	-fx-font-weight: 500;
 	-fx-line-height: 16px;
 	-fx-padding: 2px 16px;
@@ -106,17 +107,18 @@
 }
 .date-picker .cell:hover {
 	-fx-background-color: -fx-secondary-color;
+	-fx-text-fill: white;
 }
 .date-picker .cell:focused {
-	-fx-background-color: -fx-secondary-color;
+	-fx-background-color: -fx-button-color;
 }
 .date-picker .selected {
-	-fx-background-color: -fx-primary-color;
-	-fx-text-fill: black;
+	-fx-background-color: -fx-button-color;
+	-fx-text-fill: white;
 }
 .date-picker .selected:focused {
-	-fx-background-color: -fx-primary-color;
-	-fx-text-fill: black;
+	-fx-background-color: -fx-button-color;
+	-fx-text-fill: white;
 }
 .date-picker-popup  {
 	-fx-border-color: transparent;
@@ -171,4 +173,8 @@
 
 .list-view .scroll-bar:horizontal {
     -fx-scale-x: 0;
+}
+
+.radio-button {
+	-fx-padding:4px 6px 6px 6px;
 }

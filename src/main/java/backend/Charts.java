@@ -16,8 +16,8 @@ public class Charts {
 	// unfortunate use of global variables :(
 	private static ArrayList<Double> fundsInVals = new ArrayList<>();
 	private static ArrayList<Double> fundsOutVals = new ArrayList<>();
-	private static XYChart.Series fundsIn = new XYChart.Series();
-	private static XYChart.Series fundsOut = new XYChart.Series();
+	public static XYChart.Series fundsIn = new XYChart.Series();
+	public static XYChart.Series fundsOut = new XYChart.Series();
 
 	// public static XYChart.Series getFundsIn() {
 	// return fundsIn;

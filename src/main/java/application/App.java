@@ -18,6 +18,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("Main"));
         // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.getIcons().add(new Image(App.class.getResourceAsStream("top_left.png")));
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
