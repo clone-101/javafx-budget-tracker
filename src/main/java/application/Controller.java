@@ -71,13 +71,17 @@ public class Controller implements Initializable {
 
         // get values from form
         String description = trDescription.getText();
-        String funds = trFunds.getText();
+        double funds = Double.parseDouble(trFunds.getText());
+        if (trExpense.isSelected()) {
+            funds *= -1;
+        }
         Date date = Date.from(trDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        String category = trIncome.isSelected() ? "Income" : "Expense";
+        String category = null;
 
         // add transaction to backend.Transaction
         try {
-            backend.Transaction tr = new backend.Transaction(description, category, funds, funds, null, date);
+
+            backend.Transaction tr = new backend.Transaction(description, category, funds, null, date);
             trList.getItems().add(tr.toString());
             trList.refresh();
             barChart.getData().clear();

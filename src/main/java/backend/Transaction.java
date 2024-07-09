@@ -22,7 +22,7 @@ public class Transaction {
 	private static SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
 
 	// constructor
-	public Transaction(String description, String category, String fundsIn, String fundsOut, String account,
+	public Transaction(String description, String category, double funds, String account,
 			Date date)
 			throws Exception {
 
@@ -30,15 +30,12 @@ public class Transaction {
 		this.description = description.trim().toLowerCase();
 
 		// funds in/out
-		try {
-			this.fundsIn = Double.parseDouble(fundsIn);
-		} catch (Exception e) {
-			this.fundsIn = 0;
-		}
-		try {
-			this.fundsOut = Double.parseDouble(fundsOut);
-		} catch (Exception e) {
+		if (funds > 0) {
+			this.fundsIn = funds;
 			this.fundsOut = 0;
+		} else {
+			this.fundsIn = 0;
+			this.fundsOut = funds * -1;
 		}
 		// no use for account number
 		// this.account = account;
@@ -164,14 +161,33 @@ public class Transaction {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		String tempLine = "";
 		String[] lineArr;
+		// br.readLine();
 
 		while ((tempLine = br.readLine()) != null) {
 			// excludes commas contained in quotes
 			lineArr = tempLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+			for (int i = 0; i < lineArr.length; i++) {
+				System.out.println(lineArr[i]);
+			}
+			Date date;
+			double fundsIn, fundsOut;
 			try {
-				Date date = f.parse(lineArr[dateID]);
-				new Transaction(lineArr[desID], null, lineArr[fundInID], lineArr[fundOutID], lineArr[accID],
-						date);
+				date = f.parse(lineArr[dateID]);
+			} catch (Exception e) {
+				continue;
+			}
+			try {
+				fundsIn = Double.parseDouble(lineArr[fundInID]);
+			} catch (Exception e) {
+				fundsIn = 0;
+			}
+			try {
+				fundsOut = Double.parseDouble(lineArr[fundOutID]);
+			} catch (Exception e) {
+				fundsOut = 0;
+			}
+			try {
+				new Transaction(lineArr[desID], null, fundsIn - fundsOut, lineArr[accID], date);
 			} catch (Exception e) {
 			}
 
@@ -209,5 +225,6 @@ public class Transaction {
 		}
 		return sum;
 	}
+	// ************** UI stuff ***************
 
 }
