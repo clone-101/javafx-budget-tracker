@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -76,7 +77,7 @@ public class Controller implements Initializable {
             funds *= -1;
         }
         Date date = Date.from(trDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        String category = null;
+        String category = trCategory.getValue().toString();
 
         // add transaction to backend.Transaction
         try {
@@ -171,6 +172,10 @@ public class Controller implements Initializable {
             }
         });
 
-    }
+        // categories
+        ArrayList<String> categories = backend.Category.getNames();
+        trCategory.getItems().addAll(categories);
 
-}
+    } // initialize()
+
+} // Controller

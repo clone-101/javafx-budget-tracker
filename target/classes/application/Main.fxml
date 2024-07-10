@@ -55,7 +55,7 @@
   <children>
       <HBox prefHeight="283.0" prefWidth="1026.0">
          <children>
-            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="275.0" prefWidth="900.0" title="Last 12 months" verticalGridLinesVisible="false">
+            <BarChart fx:id="barChart" animated="false" barGap="1.0" legendSide="RIGHT" prefHeight="275.0" prefWidth="900.0" title="Last 12 months" verticalGridLinesVisible="false">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>

@@ -166,9 +166,7 @@ public class Transaction {
 		while ((tempLine = br.readLine()) != null) {
 			// excludes commas contained in quotes
 			lineArr = tempLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-			for (int i = 0; i < lineArr.length; i++) {
-				System.out.println(lineArr[i]);
-			}
+
 			Date date;
 			double fundsIn, fundsOut;
 			try {
