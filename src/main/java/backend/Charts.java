@@ -1,4 +1,4 @@
-//FIXME
+// this is objectively bad code :(
 
 package backend;
 
@@ -16,10 +16,10 @@ public class Charts {
 	private static int NUM_MONTHS = 12;
 
 	// unfortunate use of global variables :(
-	private static ArrayList<Double> fundsInVals = new ArrayList<>();
-	private static ArrayList<Double> fundsOutVals = new ArrayList<>();
-	public static XYChart.Series fundsIn = new XYChart.Series();
-	public static XYChart.Series fundsOut = new XYChart.Series();
+	private static ArrayList<Double> fundsInVals;
+	private static ArrayList<Double> fundsOutVals;
+	public static XYChart.Series fundsIn;
+	public static XYChart.Series fundsOut;
 
 	// public static XYChart.Series getFundsIn() {
 	// return fundsIn;
@@ -31,15 +31,15 @@ public class Charts {
 
 	// ************bar chart***********************
 	public static XYChart.Series[] getBarSeries() {
+		fundsIn = new XYChart.Series();
+		fundsOut = new XYChart.Series();
 
 		// format for yAxis labels
 		SimpleDateFormat f = new SimpleDateFormat("MMM");
 		ArrayList<Date> dates = getDates();
 
-		// XYChart.Series fundsIn = new XYChart.Series();
+		// series characteristics
 		fundsIn.setName("Funds In");
-
-		// XYChart.Series fundsOut = new XYChart.Series();
 		fundsOut.setName("Funds Out");
 
 		// gets funds from backend.Transaction.transactions
@@ -82,6 +82,8 @@ public class Charts {
 
 	// gets funds by month for barChart
 	public static void getFunds() {
+		fundsInVals = new ArrayList<>();
+		fundsOutVals = new ArrayList<>();
 		ArrayList<Date> dates = getDates();
 
 		// temporary calendar to fix overlap of first day
