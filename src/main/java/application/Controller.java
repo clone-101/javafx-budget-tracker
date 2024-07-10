@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,27 +47,26 @@ public class Controller implements Initializable {
     @FXML
     private void handleSaveButton(ActionEvent event) {
         // check if all fields are filled
-        if (trDescription.getText().length() == 0 || trFunds.getText().length() == 0 || trDate.getValue() == null) {
+        if (trDescription.getText().length() == 0 || trFunds.getText().length() == 0 || trDate.getValue() == null
+                || toggleGroup.getSelectedToggle() == null || !isValidDouble(trFunds.getText())
+                || trDate.getValue().isAfter(LocalDate.now())) {
             if (trDescription.getText().length() == 0) {
                 trDescription.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             }
             if (trFunds.getText().length() == 0) {
                 trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             }
-            if (trDate.getValue() == null) {
+            if (trDate.getValue() == null || trDate.getValue().isAfter(LocalDate.now())) {
                 trDate.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             }
-            return;
-        }
+            if (toggleGroup.getSelectedToggle() == null) {
+                trIncome.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                trExpense.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            }
+            if (!isValidDouble(trFunds.getText())) {
+                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            }
 
-        // check if funds is a valid double
-        if (!isValidDouble(trFunds.getText())) {
-            trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            return;
-        }
-
-        // check if income or expense is selected
-        if (!trIncome.isSelected() && !trExpense.isSelected()) {
             return;
         }
 
@@ -83,13 +83,24 @@ public class Controller implements Initializable {
         try {
 
             backend.Transaction tr = new backend.Transaction(description, category, funds, null, date);
-            trList.getItems().add(tr.toString());
+
+            // refresh list view
+            // not super elegant but it works
+            String[] list = backend.Transaction.TransactionStrArr();
+            trList.getItems().clear();
+            trList.getItems().addAll(list);
             trList.refresh();
+
+            // bar chart
+            // disable clear animation
+            barChart.setAnimated(false);
             barChart.getData().clear();
+            barChart.setAnimated(true);
             XYChart.Series[] series = backend.Charts.getBarSeries();
             barChart.getData().addAll(series[0], series[1]);
 
-            // handleClearButton(event);
+            // clear if all goes well
+            handleClearButton(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,11 +122,14 @@ public class Controller implements Initializable {
         trFunds.clear();
         trIncome.setSelected(false);
         trExpense.setSelected(false);
+        trIncome.setStyle("");
+        trExpense.setStyle("");
         trDate.setValue(null);
 
         trDescription.setStyle("");
         trFunds.setStyle("");
         trDate.setStyle("");
+        trCategory.setValue("other");
     }
 
     // switch scenes
@@ -172,9 +186,21 @@ public class Controller implements Initializable {
             }
         });
 
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                trIncome.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                trExpense.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            } else {
+                trIncome.setStyle("");
+                trExpense.setStyle("");
+            }
+        });
+
         // categories
         ArrayList<String> categories = backend.Category.getNames();
+        backend.Category.initialize();
         trCategory.getItems().addAll(categories);
+        trCategory.setValue("other");
 
     } // initialize()
 

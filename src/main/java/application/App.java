@@ -15,12 +15,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // FIXME
-        backend.Category c1 = new backend.Category("food");
-        backend.Category c2 = new backend.Category("entertainment");
-        backend.Category c4 = new backend.Category("bills");
-        backend.Category c5 = new backend.Category("transportation");
-        backend.Category c6 = new backend.Category("shopping");
 
         scene = new Scene(loadFXML("Main"));
         stage.getIcons().add(new Image(App.class.getResourceAsStream("icon.png")));
