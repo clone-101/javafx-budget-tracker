@@ -2,8 +2,11 @@ package backend;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.opencsv.CSVWriter;
 
 public class Transaction {
 	// instance variables
@@ -195,11 +198,15 @@ public class Transaction {
 
 	// default ID order: 13240
 	public static void writeFile() {
-		// String filePath = "../../resources/application/content.csv";
-		// if (System.getProperty("os.name").indexOf("Windows") != -1) {
-		// filePath = "..\\..\\resources\\application\\content.csv";
-		// }
-
+		String filePath = "../../resources/application/content.csv";
+		if (System.getProperty("os.name").indexOf("Windows") != -1) {
+			filePath = "..\\..\\resources\\application\\content.csv";
+		}
+		try {
+			CSVWriter writer = new CSVWriter(new FileWriter(filePath));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// ordered insertion method for transaction PFA
