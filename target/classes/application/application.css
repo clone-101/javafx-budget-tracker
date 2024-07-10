@@ -10,12 +10,6 @@
   -fx-font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono",
     monospace;
   -fx-font-weight: normal;
-  /*
-	rgb(178, 176, 155)
-	rgb(85, 109, 106)
-	#8B8979
-
-	*/
 }
 
 .root {

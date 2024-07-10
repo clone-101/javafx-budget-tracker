@@ -21,6 +21,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class Controller implements Initializable {
 
     @FXML
@@ -82,7 +83,7 @@ public class Controller implements Initializable {
         // add transaction to backend.Transaction
         try {
 
-            backend.Transaction tr = new backend.Transaction(description, category, funds, null, date);
+            new backend.Transaction(description, category, funds, null, date);
 
             // refresh list view
             // not super elegant but it works
