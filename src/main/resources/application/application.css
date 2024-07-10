@@ -61,6 +61,18 @@
 .default-color1.chart-bar {
   -fx-bar-fill: -fx-button-hover-color;
 }
+.default-color2.chart-bar {
+  -fx-bar-fill: -fx-button-color;
+}
+.default-color3.chart-bar {
+  -fx-bar-fill: -fx-button-hover-color;
+}
+.chart-bar-funds-in {
+  -fx-bar-fill: -fx-button-color;
+}
+.chart-bar-funds-out {
+  -fx-bar-fill: -fx-button-hover-color;
+}
 .chart-legend {
   -fx-background-color: transparent;
 }
@@ -181,4 +193,11 @@
 
 .radio-button {
   -fx-padding: 4px 6px 6px 6px;
+}
+
+.combo-box-base {
+  -fx-background-color: -fx-field-color;
+}
+.combo-box-base:hover .arrow-button:hover {
+  -fx-background-color: #e4e4e4;
 }

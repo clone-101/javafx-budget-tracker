@@ -197,7 +197,7 @@ public class Transaction {
 	private static void trInsert(int trCount, Transaction[] tr, Transaction element) {
 		int index = trCount - 1;
 		while (index >= 0) {
-			if (tr[index].compareTo(element) > 0) {
+			if (tr[index].compareTo(element) < 0) {
 				tr[index + 1] = tr[index--];
 			} else
 				break;

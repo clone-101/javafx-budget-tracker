@@ -7,8 +7,16 @@ public class Category {
 	private static ArrayList<Category> categories = new ArrayList<>();
 	private static ArrayList<String> names = new ArrayList<>();
 	private static final Category DEFAULT = new Category("other");
+	private static final String[] BASE_CATEGORIES = { "food", "bills", "transportation", "shopping", "income" };
 
 	// static methods
+
+	public static void initialize() {
+		for (String s : BASE_CATEGORIES) {
+			new Category(s);
+		}
+	}
+
 	public static ArrayList<Category> getCategories() {
 		return categories;
 	}
@@ -21,6 +29,16 @@ public class Category {
 		for (String s : names) {
 			new Category(s);
 		}
+	}
+
+	// creates category if it doesn't exist
+	public static Category get(String name) {
+		name = name.toLowerCase().trim();
+		for (Category c : categories) {
+			if (c.name.equals(name))
+				return c;
+		}
+		return new Category(name);
 	}
 
 	public static void delete(String name) {
@@ -87,16 +105,6 @@ public class Category {
 				return true;
 		}
 		return false;
-	}
-
-	// creates category if it doesn't exist
-	public static Category get(String name) {
-		name = name.toLowerCase().trim();
-		for (Category c : categories) {
-			if (c.name.equals(name))
-				return c;
-		}
-		return new Category(name);
 	}
 
 }

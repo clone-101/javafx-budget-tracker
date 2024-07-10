@@ -53,9 +53,9 @@
 
 <VBox prefHeight="567.0" prefWidth="955.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <children>
-      <HBox prefHeight="283.0" prefWidth="1026.0">
+      <HBox prefHeight="233.0" prefWidth="955.0">
          <children>
-            <BarChart fx:id="barChart" animated="false" barGap="1.0" legendSide="RIGHT" prefHeight="275.0" prefWidth="900.0" title="Last 12 months" verticalGridLinesVisible="false">
+            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="280.0" prefWidth="933.0" verticalGridLinesVisible="false">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -65,7 +65,7 @@
             </BarChart>
          </children>
       </HBox>
-      <HBox prefHeight="245.0" prefWidth="955.0">
+      <HBox prefHeight="300.0" prefWidth="955.0">
          <children>
             <Pane prefHeight="233.0" prefWidth="37.0" />
             <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="235.0" prefWidth="255.0">
@@ -81,8 +81,6 @@
                   <TextField fx:id="trDescription" prefWidth="175.0" />
                   <Label text="Funds" />
                   <TextField fx:id="trFunds" />
-                  <Label text="Category" />
-                  <ComboBox fx:id="trCategory" prefHeight="25.0" prefWidth="208.0" />
                   <FlowPane alignment="CENTER" prefHeight="34.0" prefWidth="208.0">
                      <children>
                         <RadioButton fx:id="trIncome" mnemonicParsing="false" text="Income">
@@ -90,34 +88,36 @@
                               <ToggleGroup fx:id="toggleGroup" />
                            </toggleGroup></RadioButton>
                         <RadioButton fx:id="trExpense" mnemonicParsing="false" text="Expense" toggleGroup="$toggleGroup" />
-                        <FlowPane alignment="CENTER" prefHeight="11.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="trClear" mnemonicParsing="false" onAction="#handleClearButton" text="Clear">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                              <Pane prefHeight="15.0" prefWidth="31.0" />
-                            <Button fx:id="trSave" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="22.0" prefWidth="73.0" text="Save" textFill="#fcfcfc">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </FlowPane>
+                     </children>
+                  </FlowPane>
+                  <Label text="Category" />
+                  <ComboBox fx:id="trCategory" prefHeight="25.0" prefWidth="208.0" promptText="other" />
+                  <FlowPane alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="208.0">
+                     <children>
+                        <Button fx:id="trClear" mnemonicParsing="false" onAction="#handleClearButton" text="Clear">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Pane prefHeight="15.0" prefWidth="31.0" />
+                      <Button fx:id="trSave" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="22.0" prefWidth="73.0" text="Save" textFill="#fcfcfc">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
                      </children>
                   </FlowPane>
                </children>
             </FlowPane>
             <FlowPane orientation="VERTICAL" prefHeight="234.0" prefWidth="319.0">
                <children>
-                  <ListView fx:id="trList" editable="true" prefHeight="248.0" prefWidth="323.0" />
+                  <ListView fx:id="trList" editable="true" prefHeight="300.0" prefWidth="323.0" />
                </children>
             </FlowPane>
             <PieChart prefHeight="235.0" prefWidth="336.0" title="This Month" />
          </children>
       </HBox>
-    <HBox id="HBox" alignment="BOTTOM_CENTER" prefHeight="41.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
+    <HBox id="HBox" alignment="BOTTOM_CENTER" prefHeight="32.0" prefWidth="955.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
             <Button fx:id="preferences" mnemonicParsing="false" onMouseClicked="#switchToPreferences" prefHeight="22.0" prefWidth="121.0" text="Preferences" />
             <Button fx:id="about" mnemonicParsing="false" prefHeight="22.0" text="About" />
