@@ -180,7 +180,7 @@ public class Controller implements Initializable {
         });
 
         trDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
+            if (newValue == null || newValue.isAfter(LocalDate.now())) {
                 trDate.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             } else {
                 trDate.setStyle("");

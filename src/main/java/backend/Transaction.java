@@ -193,6 +193,15 @@ public class Transaction {
 		br.close();
 	}
 
+	// default ID order: 13240
+	public static void writeFile() {
+		// String filePath = "../../resources/application/content.csv";
+		// if (System.getProperty("os.name").indexOf("Windows") != -1) {
+		// filePath = "..\\..\\resources\\application\\content.csv";
+		// }
+
+	}
+
 	// ordered insertion method for transaction PFA
 	private static void trInsert(int trCount, Transaction[] tr, Transaction element) {
 		int index = trCount - 1;

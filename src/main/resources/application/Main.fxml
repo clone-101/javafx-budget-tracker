@@ -122,7 +122,6 @@
             <Button fx:id="preferences" mnemonicParsing="false" onMouseClicked="#switchToPreferences" prefHeight="22.0" prefWidth="121.0" text="Preferences" />
             <Button fx:id="about" mnemonicParsing="false" prefHeight="22.0" text="About" />
         <Pane prefHeight="35.0" prefWidth="443.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="downloadCSV" mnemonicParsing="false" prefHeight="22.0" prefWidth="139.0" text="download CSV" />
             <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="22.0" prefWidth="120.0" text="upload CSV">
                <opaqueInsets>
                   <Insets />

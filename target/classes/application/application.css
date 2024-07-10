@@ -86,7 +86,7 @@
   -fx-border: none;
   -fx-color: #fff;
   -fx-background-color: -fx-button-color;
-  transition: background-color 0.17s ease, color 0.17s ease;
+  -fx-transition: background-color 0.17s ease, color 0.17s ease;
 }
 .button:hover {
   -fx-background-color: -fx-button-hover-color;
