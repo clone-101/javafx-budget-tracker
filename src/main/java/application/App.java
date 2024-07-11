@@ -11,14 +11,18 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    public static final String DEFAULT_FILE_PATH = System.getProperty("user.home") + File.separator + "TrackMyFunds"
+    // default csv path
+    public static final String DEFAULT_CSV_PATH = System.getProperty("user.home") + File.separator + "TrackMyFunds"
             + File.separator + "data" + File.separator + "content.csv";
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
+        backend.Transaction.initializeCSV(); // initialize memory from csv
+        backend.Category.initialize(); // initialize categories
 
+        // actual scene/stage stuff
         scene = new Scene(loadFXML("Main"));
         stage.getIcons().add(new Image(App.class.getResourceAsStream("icon.png")));
         stage.setResizable(false);
@@ -28,7 +32,9 @@ public class App extends Application {
 
     @Override
     public void stop() throws Exception {
-        Controller.shutdown();
+        Controller.shutdown(); // save to csv
+
+        // shutdown program
         super.stop();
         System.exit(0);
     }
@@ -43,16 +49,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-
-        String dataDirPath = System.getProperty("app.data.dir", DEFAULT_FILE_PATH);
-
-        File dataDir = new File(dataDirPath);
-
-        // Check if the directory exists, and if not, create it
-        if (!dataDir.exists())
-            dataDir.mkdirs();
         launch();
-
     }
 
 }

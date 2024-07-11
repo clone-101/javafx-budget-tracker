@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -68,10 +67,10 @@ public class Controller implements Initializable {
                 trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             }
 
-            return;
+            return; // stops save
         }
 
-        // get values from form
+        // ********** save transaction **********
         String description = trDescription.getText();
         double funds = Double.parseDouble(trFunds.getText());
         if (trExpense.isSelected()) {
@@ -80,57 +79,63 @@ public class Controller implements Initializable {
         Date date = Date.from(trDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         String category = trCategory.getValue().toString();
 
-        // add transaction to backend.Transaction
-        try {
-
+        try { // add transaction to backend.Transaction
             new backend.Transaction(date, description, funds, category);
 
             // refresh list view
-            // not super elegant but it works
             String[] list = backend.Transaction.TransactionStrArr();
             trList.getItems().clear();
             trList.getItems().addAll(list);
             trList.refresh();
 
             // bar chart
-            // disable clear animation
-            barChart.setAnimated(false);
+            barChart.setAnimated(false); // disable clearing animation
             barChart.getData().clear();
             barChart.setAnimated(true);
             XYChart.Series[] series = backend.Charts.getBarSeries();
             barChart.getData().addAll(series[0], series[1]);
 
-            // clear if all goes well
-            handleClearButton(event);
+            handleClearButton(event); // clear form fields
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    // only strictly positive doubles
     private boolean isValidDouble(String value) {
+        double val = -1;
         try {
-            Double.parseDouble(value);
-            return true;
+            val = Double.parseDouble(value);
         } catch (NumberFormatException e) {
-            return false;
         }
+        return val > 0;
+    }
+
+    // changes Category comboBox based on radio button selection
+    private void updateCategoryOnSelection() {
+        trCategory.getItems().clear(); // clear comboBox
+        if (trIncome.isSelected()) {
+            trCategory.getItems().addAll(backend.Category.getIncomeNames());
+        } else {
+            trCategory.getItems().addAll(backend.Category.getExpenseNames());
+        }
+        trCategory.setValue("other"); // placeholder/default value
     }
 
     @FXML
     private void handleClearButton(ActionEvent event) {
-        trDescription.clear();
-        trFunds.clear();
+        trDescription.clear(); // clear description
+        trFunds.clear(); // clear funds
+        // set radio buttons
         trIncome.setSelected(false);
-        trExpense.setSelected(false);
-        trIncome.setStyle("");
-        trExpense.setStyle("");
-        trDate.setValue(null);
+        trExpense.setSelected(true);
+        trDate.setValue(null); // clear date
+        trCategory.setValue("other"); // clear comboBox
 
+        // clear red borders
         trDescription.setStyle("");
         trFunds.setStyle("");
         trDate.setStyle("");
-        trCategory.setValue("other");
     }
 
     // switch scenes
@@ -141,11 +146,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // this should be 2 controllers, don't be like me
-        // main window
-        // gets series from backend.Charts 0: fundsIn, 1: fundsOut
+        // bar chart
         XYChart.Series[] series = backend.Charts.getBarSeries();
-        barChart.getData().addAll(series[0], series[1]);
+        barChart.getData().addAll(series[0], series[1]); // 0 is fundsIn, 1 is fundsOut
 
         // listView
         String[] list = backend.Transaction.TransactionStrArr();
@@ -176,31 +179,23 @@ public class Controller implements Initializable {
             }
         });
 
-        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                trIncome.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-                trExpense.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            } else {
-                trIncome.setStyle("");
-                trExpense.setStyle("");
-            }
-        });
+        trExpense.setSelected(true); // expense toggled by default
 
-        // categories
-        ArrayList<String> categories = backend.Category.getNames();
-        backend.Category.initialize();
-        trCategory.getItems().addAll(categories);
+        // update category based on radio buttons
+        trIncome.setOnAction(event -> updateCategoryOnSelection());
+        trExpense.setOnAction(event -> updateCategoryOnSelection());
+
+        // backend.Category.initialize();
+        trCategory.getItems().addAll(backend.Category.getExpenseNames()); // expense by default
         trCategory.setValue("other");
 
     } // initialize()
 
     public static void shutdown() {
-        // save to csv
-        try {
+        try { // save to csv
             backend.Transaction.saveToFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-}
-// Controller
+} // Controller class
