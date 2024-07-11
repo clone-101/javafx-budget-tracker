@@ -139,16 +139,10 @@ public class Controller implements Initializable {
         App.setRoot("Preferences");
     }
 
-    @FXML
-    private void switchToMain() throws IOException {
-        App.setRoot("Main");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        backend.Transaction.initializeCSV();
-
+        // this should be 2 controllers, don't be like me
+        // main window
         // gets series from backend.Charts 0: fundsIn, 1: fundsOut
         XYChart.Series[] series = backend.Charts.getBarSeries();
         barChart.getData().addAll(series[0], series[1]);
@@ -162,10 +156,10 @@ public class Controller implements Initializable {
             if (isValidDouble(newValue)) {
                 trFunds.setStyle(""); // Valid input, clear any custom styles
             } else {
-                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;"); // Invalid input, show error style
+                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;"); // Invalid input, show error
+                                                                                     // style
             }
         });
-
         trDescription.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() == 0) {
                 trDescription.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
