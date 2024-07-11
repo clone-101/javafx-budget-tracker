@@ -24,6 +24,7 @@
 .label {
   -fx-text-fill: black;
 }
+/* Bar Chart */
 .axis {
   -fx-tick-label-fill: black;
 }
