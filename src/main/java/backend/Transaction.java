@@ -16,6 +16,7 @@ public class Transaction {
 	private Category category = null;
 	private double fundsIn;
 	private double fundsOut;
+	private boolean isExpense;
 	private Date date;
 
 	// pull current transaction from local csv
@@ -43,8 +44,9 @@ public class Transaction {
 			this.fundsOut = funds * -1;
 		}
 
-		// date
-		this.date = date;
+		isExpense = funds < 0; // true if expense, false if income
+
+		this.date = date; // date
 
 		// resize transaction PFA
 		if (trCount >= transactions.length - 1) {
@@ -61,7 +63,7 @@ public class Transaction {
 		if (category == null) {
 			category = "other";
 		}
-		this.category = Category.get(category);
+		this.category = Category.get(category, isExpense);
 		this.category.add(this);
 	} // constructor
 
@@ -98,6 +100,10 @@ public class Transaction {
 
 	public double getFundsOut() {
 		return fundsOut;
+	}
+
+	public boolean isExpense() {
+		return isExpense;
 	}
 
 	// setters
