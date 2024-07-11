@@ -1,9 +1,11 @@
 package backend;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.opencsv.CSVWriter;
@@ -15,22 +17,22 @@ public class Transaction {
 	private double fundsIn;
 	private double fundsOut;
 	private Date date;
-	// private String account;
 
-	// static variables
 	// pull current transaction from local csv
 	public static Transaction[] transactions = new Transaction[1000];
 	public static int trCount = 0;
 	// date format: MM/dd/yyyy
 	private static SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
 
+	// working directory
+	public static final String WORKING_DIR = System.getProperty("user.dir");
+	public static final String CSV = "content.csv";
+
 	// constructor
-	public Transaction(String description, String category, double funds, String account,
-			Date date)
-			throws Exception {
+	public Transaction(Date date, String description, double funds, String category) throws Exception {
 
 		// always toLowerCase()
-		this.description = description.trim().toLowerCase();
+		this.description = description.trim().toLowerCase().replaceAll("\"", "");
 
 		// funds in/out
 		if (funds > 0) {
@@ -40,8 +42,6 @@ public class Transaction {
 			this.fundsIn = 0;
 			this.fundsOut = funds * -1;
 		}
-		// no use for account number
-		// this.account = account;
 
 		// date
 		this.date = date;
@@ -158,13 +158,12 @@ public class Transaction {
 	// file IO
 
 	// default ID order: 13240
-	public static void readFile(String filename, int desID, int fundInID, int fundOutID, int accID, int dateID)
+	public static void readFile(String filename, int dateID, int desID, int fundOutID, int fundInID)
 			throws Exception {
 
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		String tempLine = "";
 		String[] lineArr;
-		// br.readLine();
 
 		while ((tempLine = br.readLine()) != null) {
 			// excludes commas contained in quotes
@@ -173,37 +172,71 @@ public class Transaction {
 			Date date;
 			double fundsIn, fundsOut;
 			try {
-				date = f.parse(lineArr[dateID]);
+				date = f.parse(lineArr[dateID].replaceAll("\"", ""));
 			} catch (Exception e) {
 				continue;
 			}
 			try {
-				fundsIn = Double.parseDouble(lineArr[fundInID]);
+				fundsIn = Double.parseDouble(lineArr[fundInID].replaceAll("\"", ""));
 			} catch (Exception e) {
 				fundsIn = 0;
 			}
 			try {
-				fundsOut = Double.parseDouble(lineArr[fundOutID]);
+				fundsOut = Double.parseDouble(lineArr[fundOutID].replaceAll("\"", ""));
 			} catch (Exception e) {
 				fundsOut = 0;
 			}
+
 			try {
-				new Transaction(lineArr[desID], null, fundsIn - fundsOut, lineArr[accID], date);
+				// max category length is 15 characters (including quotes)
+				if (lineArr[4].length() < 16) {
+					String category = lineArr[4].replaceAll("\"", "");
+					new Transaction(date, lineArr[desID], fundsIn - fundsOut, category);
+				} else
+					new Transaction(date, lineArr[desID], fundsIn - fundsOut, null);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}
 		br.close();
 	}
 
-	// default ID order: 13240
-	public static void writeFile() {
-		String filePath = "../../resources/application/content.csv";
-		if (System.getProperty("os.name").indexOf("Windows") != -1) {
-			filePath = "..\\..\\resources\\application\\content.csv";
+	public static void saveToFile() {
+		String filePath = WORKING_DIR + File.separator + CSV;
+		System.out.println(filePath);
+
+		// Ensure the directory exists
+		File file = new File(filePath);
+		file.getParentFile().mkdirs();
+
+		try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
+			ArrayList<String[]> data = new ArrayList<>();
+			for (Transaction tr : transactions) {
+				if (tr != null) {
+					String[] temp = new String[5];
+					temp[1] = tr.getDescription();
+					temp[4] = tr.getCategory().toString();
+					temp[3] = Double.toString(tr.getFundsIn());
+					temp[2] = Double.toString(tr.getFundsOut());
+					temp[0] = f.format(tr.getDate());
+					data.add(temp);
+				}
+			}
+			writer.writeAll(data);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	public static void initializeCSV() {
+		String filePath = WORKING_DIR + File.separator + CSV;
+
+		File file = new File(filePath);
+		file.getParentFile().mkdirs();
+
 		try {
-			CSVWriter writer = new CSVWriter(new FileWriter(filePath));
+			readFile(filePath, 0, 1, 2, 3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -24,7 +24,7 @@ public class Test {
 			path = windowsPath;
 		}
 		try {
-			backend.Transaction.readFile(path, 1, 3, 2, 4, 0);
+			backend.Transaction.readFile(path, 0, 1, 2, 3);
 
 		} catch (Exception e) {
 			e.printStackTrace();

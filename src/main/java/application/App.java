@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -10,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    public static final String DEFAULT_FILE_PATH = System.getProperty("user.home") + File.separator + "TrackMyFunds"
+            + File.separator + "data" + File.separator + "content.csv";
 
     private static Scene scene;
 
@@ -23,6 +26,13 @@ public class App extends Application {
         stage.show();
     }
 
+    @Override
+    public void stop() throws Exception {
+        Controller.shutdown();
+        super.stop();
+        System.exit(0);
+    }
+
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -33,7 +43,16 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+
+        String dataDirPath = System.getProperty("app.data.dir", DEFAULT_FILE_PATH);
+
+        File dataDir = new File(dataDirPath);
+
+        // Check if the directory exists, and if not, create it
+        if (!dataDir.exists())
+            dataDir.mkdirs();
         launch();
+
     }
 
 }

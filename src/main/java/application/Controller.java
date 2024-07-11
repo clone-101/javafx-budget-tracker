@@ -83,7 +83,7 @@ public class Controller implements Initializable {
         // add transaction to backend.Transaction
         try {
 
-            new backend.Transaction(description, category, funds, null, date);
+            new backend.Transaction(date, description, funds, category);
 
             // refresh list view
             // not super elegant but it works
@@ -146,13 +146,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // temporary running of import on SIMPLII.csv
-        try {
-            test.Test.initializeCSV();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        backend.Transaction.initializeCSV();
 
         // gets series from backend.Charts 0: fundsIn, 1: fundsOut
         XYChart.Series[] series = backend.Charts.getBarSeries();
@@ -205,4 +200,13 @@ public class Controller implements Initializable {
 
     } // initialize()
 
-} // Controller
+    public static void shutdown() {
+        // save to csv
+        try {
+            backend.Transaction.saveToFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+// Controller
