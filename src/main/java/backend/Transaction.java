@@ -270,11 +270,33 @@ public class Transaction {
 		return sum;
 	}
 
+	public static double getIncomeByCategory(Date start, Date end, Category category) {
+		double sum = 0;
+		for (Transaction tr : transactions) {
+			if (tr != null && tr.getDate().compareTo(start) > 0 && tr.getDate().compareTo(end) < 0
+					&& tr.getCategory().equals(category)) {
+				sum += tr.getFundsIn();
+			}
+		}
+		return sum;
+	}
+
 	public static double getExpenses(Date start, Date end) {
 		double sum = 0;
 		for (int i = 0; i < transactions.length && transactions[i] != null; i++) {
 			if (transactions[i].getDate().compareTo(start) > 0 && transactions[i].getDate().compareTo(end) < 0)
 				sum += transactions[i].getFundsOut();
+		}
+		return sum;
+	}
+
+	public static double getExpensesByCategory(Date start, Date end, Category category) {
+		double sum = 0;
+		for (Transaction tr : transactions) {
+			if (tr != null && tr.getDate().compareTo(start) > 0 && tr.getDate().compareTo(end) < 0
+					&& tr.getCategory().equals(category)) {
+				sum += tr.getFundsOut();
+			}
 		}
 		return sum;
 	}

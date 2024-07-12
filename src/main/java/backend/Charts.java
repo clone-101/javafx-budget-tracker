@@ -7,27 +7,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 
 public class Charts {
-	// eventually will not be hardcoded
+	// eventually will not be hardcoded (maybe)
 	private static int NUM_MONTHS = 12;
 
 	// unfortunate use of global variables :(
 	private static ArrayList<Double> fundsInVals;
 	private static ArrayList<Double> fundsOutVals;
-	public static XYChart.Series fundsIn;
-	public static XYChart.Series fundsOut;
-
-	// public static XYChart.Series getFundsIn() {
-	// return fundsIn;
-	// }
-
-	// public static XYChart.Series getFundsOut() {
-	// return fundsOut;
-	// }
+	private static XYChart.Series fundsIn;
+	private static XYChart.Series fundsOut;
 
 	// ************bar chart***********************
 	public static XYChart.Series[] getBarSeries() {
@@ -106,4 +101,30 @@ public class Charts {
 	}
 
 	// ******************pie chart***************************
+	public static ObservableList<PieChart.Data> getPieData() {
+		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+		Date start = getFirstOfMonth(), end = new Date();
+		ArrayList<Category> categories = Category.getExpenseCategories();
+
+		for (Category c : categories) {
+			double funds = backend.Transaction.getExpensesByCategory(start, end, c);
+			if (funds > 0)
+				pieChartData.add(new PieChart.Data(c.toString(), funds));
+		}
+
+		return pieChartData;
+	}
+
+	public static Date getFirstOfMonth() {
+		Calendar calendar = Calendar.getInstance();
+		// set date to midnight on the first of the current month;
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		return calendar.getTime();
+	}
+
 }

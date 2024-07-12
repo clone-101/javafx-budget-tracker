@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,6 +26,8 @@ public class Controller implements Initializable {
 
     @FXML
     private BarChart<String, Double> barChart;
+    @FXML
+    private PieChart pieChart;
     @FXML
     private ListView<String> trList = new ListView<String>();
 
@@ -95,6 +98,8 @@ public class Controller implements Initializable {
             XYChart.Series[] series = backend.Charts.getBarSeries();
             barChart.getData().addAll(series[0], series[1]);
 
+            initializePieChart(); // pie chart
+
             handleClearButton(event); // clear form fields
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,11 +149,22 @@ public class Controller implements Initializable {
         App.setRoot("Preferences");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initializeBarChart() {
         // bar chart
         XYChart.Series[] series = backend.Charts.getBarSeries();
         barChart.getData().addAll(series[0], series[1]); // 0 is fundsIn, 1 is fundsOut
+
+    }
+
+    public void initializePieChart() {
+        pieChart.getData().clear();
+        pieChart.getData().addAll(backend.Charts.getPieData());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeBarChart(); // bar chart
+        initializePieChart(); // pie chart
 
         // listView
         String[] list = backend.Transaction.TransactionStrArr();
