@@ -114,7 +114,7 @@
                   <ListView fx:id="trList" editable="true" prefHeight="300.0" prefWidth="323.0" />
                </children>
             </FlowPane>
-            <PieChart prefHeight="235.0" prefWidth="336.0" title="This Month" />
+            <PieChart fx:id="pieChart" prefHeight="235.0" prefWidth="336.0" title="Expenses (MTD)" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="BOTTOM_CENTER" prefHeight="32.0" prefWidth="955.0" spacing="5.0" VBox.vgrow="NEVER">

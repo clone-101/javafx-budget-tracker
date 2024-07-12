@@ -1,3 +1,4 @@
+/* Global/Pre-sets */
 * {
   -fx-primary-color: #ced4da;
   -fx-secondary-color: #343a40;
@@ -15,14 +16,20 @@
 .root {
   -fx-background-color: -fx-primary-color;
 }
+/* Menu */
 .menu-bar {
   -fx-background-color: -fx-secondary-color;
 }
 .menu .label {
   -fx-text-fill: white;
 }
+/* Default Label */
 .label {
   -fx-text-fill: black;
+}
+/* Default Text Field */
+.text-field {
+  -fx-background-color: -fx-field-color;
 }
 /* Bar Chart */
 .axis {
@@ -46,10 +53,6 @@
 .chart-horizontal-grid-lines {
   -fx-stroke: transparent;
 }
-
-.pie-chart .chart-content .chart-plot-background {
-  -fx-background-color: transparent;
-}
 .default-color0.chart-bar {
   -fx-bar-fill: -fx-button-color;
 }
@@ -71,9 +74,44 @@
 .chart-legend {
   -fx-background-color: transparent;
 }
-.text-field {
-  -fx-background-color: -fx-field-color;
+/* Pie Chart */
+.pie-chart .chart-content .chart-plot-background {
+  -fx-background-color: transparent;
 }
+.data0.chart-pie {
+  -fx-pie-color: #264653;
+}
+.data1.chart-pie {
+  -fx-pie-color: #e76f51;
+}
+.data2.chart-pie {
+  -fx-pie-color: #287271;
+}
+.data3.chart-pie {
+  -fx-pie-color: #ee8959;
+}
+.data4.chart-pie {
+  -fx-pie-color: #2a9d8f;
+}
+.data5.chart-pie {
+  -fx-pie-color: #f4a261;
+}
+.data6.chart-pie {
+  -fx-pie-color: #8ab17d;
+}
+.data7.chart-pie {
+  -fx-pie-color: #efb366;
+}
+.data8.chart-pie {
+  -fx-pie-color: #8ab17d;
+}
+.data9.chart-pie {
+  -fx-pie-color: #e9c46a;
+}
+.data10.chart-pie {
+  -fx-pie-color: #babb74;
+}
+/* Button */
 .button {
   -fx-display: inline-block;
   -fx-outline: none;
@@ -92,7 +130,7 @@
 .button:hover {
   -fx-background-color: -fx-button-hover-color;
 }
-
+/* Date Picker */
 .date-picker .arrow-button {
   -fx-background-color: -fx-primary-color;
   -fx-background-radius: 0;
@@ -140,6 +178,7 @@
 .date-picker-popup .spinner .button .right-arrow {
   -fx-background-color: black;
 }
+/* Table View */
 .list-view {
   -fx-background-color: -fx-field-color;
 }
@@ -185,11 +224,12 @@
 .list-view .scroll-bar:horizontal {
   -fx-scale-x: 0;
 }
-
+/* radio button */
 .radio-button {
   -fx-padding: 4px 6px 6px 6px;
 }
 
+/* combo box */
 .combo-box-base {
   -fx-background-color: -fx-field-color;
 }
