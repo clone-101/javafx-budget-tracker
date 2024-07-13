@@ -222,7 +222,7 @@ public class Transaction {
 	public Transaction(Date date, String description, double funds, String category) throws Exception {
 
 		// always toLowerCase()
-		if (description.length() != 0)
+		if (description != null && description.length() != 0)
 			this.description = description.trim().toLowerCase().replaceAll("\"", "");
 
 		// funds in/out
@@ -261,6 +261,9 @@ public class Transaction {
 	public void delete(Transaction tr) {
 		boolean found = false;
 		for (int i = 0; i < transactions.length - 1; i++) {
+			if (transactions[i] == null) {
+				continue;
+			}
 			if (tr.equals(transactions[i])) {
 				found = true;
 			}
@@ -268,6 +271,7 @@ public class Transaction {
 				transactions[i] = transactions[i + 1];
 			}
 		}
+		trCount--;
 	}
 
 	// getters

@@ -24,6 +24,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
@@ -162,6 +163,17 @@ public class Controller implements Initializable {
     private void initializeListView() {
         Transaction[] list = Transaction.getTransactions();
         trList.getItems().addAll(list);
+        trList.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                Transaction tr = trList.getSelectionModel().getSelectedItem();
+                if (tr != null) {
+                    tr.delete(tr);
+                    refreshListView();
+                    initializeBarChart();
+                    initializePieChart();
+                }
+            }
+        });
     }
 
     private void initializeTrForm() {
