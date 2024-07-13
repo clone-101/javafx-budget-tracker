@@ -1,8 +1,10 @@
+backend\Category.class
+test\Test.class
+backend\Charts.class
+application\PreferenceController.class
 backend\Transaction.class
 application\Main.class
-backend\Category.class
 application\Controller.class
 module-info.class
-test\Test.class
+application\AboutController.class
 application\App.class
-backend\Charts.class

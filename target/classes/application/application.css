@@ -30,6 +30,7 @@
 /* Default Text Field */
 .text-field {
   -fx-background-color: -fx-field-color;
+  -fx-prompt-text-fill: grey;
 }
 /* Bar Chart */
 .axis {

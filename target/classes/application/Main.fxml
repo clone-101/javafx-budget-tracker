@@ -67,7 +67,6 @@
       </HBox>
       <HBox prefHeight="300.0" prefWidth="955.0">
          <children>
-            <Pane prefHeight="233.0" prefWidth="37.0" />
             <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="235.0" prefWidth="255.0">
                <children>
                   <Label contentDisplay="CENTER" text="Add Transaction">
@@ -87,7 +86,7 @@
                            <toggleGroup>
                               <ToggleGroup fx:id="toggleGroup" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="trExpense" mnemonicParsing="false" text="Expense" toggleGroup="$toggleGroup" />
+                        <RadioButton fx:id="trExpense" mnemonicParsing="false" selected="true" text="Expense" toggleGroup="$toggleGroup" />
                      </children>
                   </FlowPane>
                   <Label text="Category" />
@@ -109,20 +108,20 @@
                   </FlowPane>
                </children>
             </FlowPane>
-            <FlowPane orientation="VERTICAL" prefHeight="234.0" prefWidth="319.0">
+            <FlowPane orientation="VERTICAL" prefHeight="300.0" prefWidth="306.0">
                <children>
-                  <ListView fx:id="trList" editable="true" prefHeight="300.0" prefWidth="323.0" />
+                  <ListView fx:id="trList" editable="true" prefHeight="300.0" prefWidth="305.0" />
                </children>
             </FlowPane>
-            <PieChart fx:id="pieChart" prefHeight="235.0" prefWidth="336.0" title="Expenses (MTD)" />
+            <PieChart fx:id="pieChart" legendVisible="false" prefHeight="300.0" prefWidth="396.0" title="Expenses (MTD)" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="BOTTOM_CENTER" prefHeight="32.0" prefWidth="955.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
             <Button fx:id="preferences" mnemonicParsing="false" onMouseClicked="#switchToPreferences" prefHeight="22.0" prefWidth="121.0" text="Preferences" />
-            <Button fx:id="about" mnemonicParsing="false" prefHeight="22.0" text="About" />
+            <Button fx:id="about" mnemonicParsing="false" onAction="#switchToAbout" prefHeight="22.0" text="About" />
         <Pane prefHeight="35.0" prefWidth="443.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="uploadCSV" mnemonicParsing="false" prefHeight="22.0" prefWidth="120.0" text="upload CSV">
+            <Button fx:id="uploadCSV" mnemonicParsing="false" onAction="#handleUploadCSV" prefHeight="22.0" prefWidth="120.0" text="Upload CSV">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

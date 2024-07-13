@@ -1,7 +1,10 @@
 package test;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import backend.Transaction;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
@@ -23,8 +26,9 @@ public class Test {
 		if (System.getProperty("os.name").indexOf("Windows") != -1) {
 			path = windowsPath;
 		}
+		File file = new File(path);
 		try {
-			backend.Transaction.readFile(path, 0, 1, 2, 3);
+			Transaction.readFile(file, Transaction.getCSVOrder());
 
 		} catch (Exception e) {
 			e.printStackTrace();
