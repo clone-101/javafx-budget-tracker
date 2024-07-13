@@ -171,6 +171,8 @@ public class Controller implements Initializable {
                     refreshListView();
                     initializeBarChart();
                     initializePieChart();
+                    if (!trList.getItems().isEmpty())
+                        trList.getSelectionModel().selectFirst();
                 }
             }
         });
