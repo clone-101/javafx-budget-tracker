@@ -12,47 +12,46 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
-
 public class Charts {
-	// eventually will not be hardcoded (maybe)
-	private static int NUM_MONTHS = 12;
 
-	// unfortunate use of global variables :(
-	private static ArrayList<Double> fundsInVals;
-	private static ArrayList<Double> fundsOutVals;
-	private static XYChart.Series fundsIn;
-	private static XYChart.Series fundsOut;
+	private static final boolean EXPENSE = true; // for Category methods
+	private static final int NUM_MONTHS = 12;
 
-	// ************bar chart***********************
-	public static XYChart.Series[] getBarSeries() {
-		fundsIn = new XYChart.Series();
-		fundsOut = new XYChart.Series();
+	public static XYChart.Series<String, Double>[] getBarSeries() {
+		@SuppressWarnings("unchecked")
+		XYChart.Series<String, Double>[] series = new XYChart.Series[2];
+
+		XYChart.Series<String, Double> fundsIn = new XYChart.Series<String, Double>();
+		XYChart.Series<String, Double> fundsOut = new XYChart.Series<String, Double>();
 
 		// format for yAxis labels
 		SimpleDateFormat f = new SimpleDateFormat("MMM");
-		ArrayList<Date> dates = getDates();
+		ArrayList<Date> dates = getBarDates();
 
 		// series characteristics
 		fundsIn.setName("Funds In");
 		fundsOut.setName("Funds Out");
 
 		// gets funds from backend.Transaction.transactions
-		getFunds();
+		ArrayList<Double> fundsInValues = new ArrayList<Double>(), fundsOutValues = new ArrayList<Double>();
+		getFunds(fundsInValues, fundsOutValues);
 
 		// assigns values to fundsIn and fundsOut series
 		for (int i = 0; i < dates.size() - 1; i++) {
-			fundsIn.getData().add(new XYChart.Data(f.format(dates.get(i)).toString(), fundsInVals.get(i)));
-			fundsOut.getData().add(new XYChart.Data(f.format(dates.get(i)).toString(), fundsOutVals.get(i)));
+			String date = f.format(dates.get(i)).toString();
+			fundsIn.getData().add(new XYChart.Data<String, Double>(date, fundsInValues.get(i)));
+			fundsOut.getData().add(new XYChart.Data<String, Double>(date, fundsOutValues.get(i)));
 		}
 
-		// returns both series in an array
-		XYChart.Series[] series = { fundsIn, fundsOut };
+		// return series' as array
+		series[0] = fundsIn;
+		series[1] = fundsOut;
+
 		return series;
 	} // getBarSeries()
 
 	// gets ArrayList of dates for barChart
-	public static ArrayList<Date> getDates() {
+	private static ArrayList<Date> getBarDates() {
 
 		// calendar arithmetic to get the first day of the last 12 months
 		Calendar calendar = Calendar.getInstance();
@@ -60,11 +59,7 @@ public class Charts {
 		months.add(new Date());
 
 		// set date to midnight on the first of the current month;
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
+		calendar = getFirstOfMonth();
 
 		for (int i = 0; i < NUM_MONTHS; i++) {
 			months.add(0, calendar.getTime());
@@ -76,10 +71,8 @@ public class Charts {
 	}
 
 	// gets funds by month for barChart
-	public static void getFunds() {
-		fundsInVals = new ArrayList<>();
-		fundsOutVals = new ArrayList<>();
-		ArrayList<Date> dates = getDates();
+	private static void getFunds(ArrayList<Double> fundsInValues, ArrayList<Double> fundsOutValues) {
+		ArrayList<Date> dates = getBarDates();
 
 		// temporary calendar to fix overlap of first day
 		Calendar temp = Calendar.getInstance();
@@ -95,19 +88,19 @@ public class Charts {
 			Date start = dates.get(i), end = temp.getTime();
 
 			// gets total fundsIn/fundsOut for transactions
-			fundsInVals.add(backend.Transaction.getIncome(start, end));
-			fundsOutVals.add(backend.Transaction.getExpenses(start, end));
+			fundsInValues.add(Transaction.getIncome(start, end));
+			fundsOutValues.add(Transaction.getExpenses(start, end));
 		}
 	}
 
 	// ******************pie chart***************************
 	public static ObservableList<PieChart.Data> getPieData() {
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-		Date start = getFirstOfMonth(), end = new Date();
-		ArrayList<Category> categories = Category.getExpenseCategories();
+		Date start = getFirstOfMonth().getTime(), end = new Date();
+		ArrayList<Category> categories = Category.getCategories(EXPENSE);
 
 		for (Category c : categories) {
-			double funds = backend.Transaction.getExpensesByCategory(start, end, c);
+			double funds = Transaction.getExpensesByCategory(start, end, c);
 			if (funds > 0)
 				pieChartData.add(new PieChart.Data(c.toString(), funds));
 		}
@@ -115,7 +108,7 @@ public class Charts {
 		return pieChartData;
 	}
 
-	public static Date getFirstOfMonth() {
+	public static Calendar getFirstOfMonth() {
 		Calendar calendar = Calendar.getInstance();
 		// set date to midnight on the first of the current month;
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -124,7 +117,7 @@ public class Charts {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 
-		return calendar.getTime();
+		return calendar;
 	}
 
 }

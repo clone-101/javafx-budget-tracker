@@ -1,6 +1,7 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Category {
 	// ArrayList of all categories
@@ -10,50 +11,39 @@ public class Category {
 	private static ArrayList<String> incomeNames = new ArrayList<>();
 
 	// provide true for expense category, false for income category
-	private static final boolean EXPENSE = true, INCOME = false;
+	// private static final boolean EXPENSE = true, INCOME = false;
+
+	// default categories
+	private static final String[] BASE_EXPENSE_CATEGORIES = { "other", "food", "bills", "transportation", "shopping" };
+	private static final String[] BASE_INCOME_CATEGORIES = { "other", "salary", "gifts", "investments", "odd jobs" };
+	private static final String DEFAULT = "other";
 
 	// default categories can be changed in settings
-	private static String[] BASE_EXPENSE_CATEGORIES = { "other", "food", "bills", "transportation", "shopping" };
-	private static String[] BASE_INCOME_CATEGORIES = { "other", "salary", "gifts", "investments", "odd jobs" };
+	private static ArrayList<String> EXPENSE_CATEGORIES = new ArrayList<String>(Arrays.asList(BASE_EXPENSE_CATEGORIES));
+	private static ArrayList<String> INCOME_CATEGORIES = new ArrayList<String>(Arrays.asList(BASE_INCOME_CATEGORIES));
 
 	// static methods
 
 	public static void initialize() {
-		for (String s : BASE_EXPENSE_CATEGORIES) {
-			new Category(s, true);
+		for (String s : EXPENSE_CATEGORIES) {
+			if (!expenseNames.contains(s))
+				new Category(s, true);
 		}
-		for (String s : BASE_INCOME_CATEGORIES) {
-			new Category(s, false);
+		for (String s : INCOME_CATEGORIES) {
+			if (!incomeNames.contains(s))
+				new Category(s, false);
 		}
 	}
 
 	// static getters
-	public static ArrayList<Category> getExpenseCategories() {
-		return expenseCategories;
+
+	// eventually faze in getCategories(boolean type)
+	public static ArrayList<Category> getCategories(boolean type) {
+		return type ? expenseCategories : incomeCategories;
 	}
 
-	public static ArrayList<Category> getIncomeCategories() {
-		return incomeCategories;
-	}
-
-	public static ArrayList<String> getExpenseNames() {
-		return expenseNames;
-	}
-
-	public static ArrayList<String> getIncomeNames() {
-		return incomeNames;
-	}
-
-	public static void addAllIncome(String[] names) {
-		for (String s : incomeNames) {
-			new Category(s, INCOME);
-		}
-	}
-
-	public static void addAllExpense(String[] names) {
-		for (String s : expenseNames) {
-			new Category(s, EXPENSE);
-		}
+	public static ArrayList<String> getCategoryNames(boolean type) {
+		return type ? expenseNames : incomeNames;
 	}
 
 	// creates category if it doesn't exist
@@ -75,29 +65,50 @@ public class Category {
 		return new Category(name, type);
 	}
 
+	// returns all descriptions for a category
+	public static String[] getDescriptions() {
+		ArrayList<String> descriptions = new ArrayList<>();
+		for (Transaction tr : Transaction.getTransactions()) {
+			if (tr == null)
+				break;
+			if (!descriptions.contains(tr.getDescription())) {
+				descriptions.add(tr.getDescription());
+			}
+		}
+		return descriptions.toArray(new String[descriptions.size()]);
+	}
+
+	// delete a category
 	public static void delete(String name, boolean type) {
-		Category temp = get(name, type);
-		Category standard = get("other", type);
+		// gets category and default category
+		Category deleting = get(name, type), standard = get(DEFAULT, type);
 
 		// sets all transactions with this category to default
-		for (String s : temp.descriptions) {
-			for (Transaction tr : Transaction.transactions) {
-				if (tr == null)
-					break;
-				if (tr.getDescription().equals(s)) {
+		for (String description : deleting.descriptions) {
+			for (Transaction tr : Transaction.getTransactions()) {
+				if (tr != null && tr.getCategory().equals(deleting) && tr.getDescription().equals(description)) {
 					tr.setCategory(standard);
 				}
 			}
 		}
 		// removes category from lists
 		if (type) { // if expense
-			expenseCategories.remove(temp);
+			expenseCategories.remove(deleting);
 			expenseNames.remove(name);
 		} else { // if income
-			incomeCategories.remove(temp);
+			incomeCategories.remove(deleting);
 			incomeNames.remove(name);
 		}
 	} // delete()
+
+	// bulk reassign
+	public static void bulkReassign(String description, Category category) {
+		for (Transaction tr : Transaction.getTransactions()) {
+			if (tr != null && tr.getDescription().equals(description)) {
+				tr.setCategory(category);
+			}
+		}
+	}
 
 	// tests if a name belongs to a category (income/expense specific)
 	public static boolean isCategory(String name, boolean type) {
@@ -137,23 +148,20 @@ public class Category {
 		}
 	}
 
-	// getters
-	public boolean getType() {
-		return type;
+	// add description to category
+	public void addDescription(String description) {
+		if (!descriptions.contains(description)) {
+			descriptions.add(description);
+		}
 	}
 
-	// adds all similar transaction to the category
-	public void add(Transaction adding) {
-		String description = adding.getDescription();
-		for (Transaction tr : Transaction.transactions) {
-			if (tr == null) // skip null transactions (PFA)
-				continue;
-			if (tr.getDescription().equals(description)) {
-				if (tr.getCategory() == null || !tr.getCategory().equals(this)) {
-					tr.setCategory(this);
-				}
-			}
-		}
+	// getters
+	public String getName() {
+		return name;
+	}
+
+	public boolean getType() {
+		return type;
 	}
 
 	// equal based on name
