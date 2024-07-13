@@ -1,8 +1,9 @@
 package application;
 
-import java.io.File;
 import java.io.IOException;
 
+import backend.Category;
+import backend.Transaction;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,16 +12,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    // default csv path
-    public static final String DEFAULT_CSV_PATH = System.getProperty("user.home") + File.separator + "TrackMyFunds"
-            + File.separator + "data" + File.separator + "content.csv";
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        backend.Transaction.initializeCSV(); // initialize memory from csv
-        backend.Category.initialize(); // initialize categories
+        Category.initialize(); // initialize categories
+        Transaction.initializeCSV(); // initialize memory from csv
 
         // actual scene/stage stuff
         scene = new Scene(loadFXML("Main"));
