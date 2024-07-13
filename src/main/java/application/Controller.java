@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -7,6 +8,9 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import backend.Category;
+import backend.Charts;
+import backend.Transaction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,16 +24,19 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.FileChooser;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class Controller implements Initializable {
+    // for Category methods
+    private static final boolean EXPENSE = true, INCOME = false;
 
     @FXML
     private BarChart<String, Double> barChart;
     @FXML
     private PieChart pieChart;
     @FXML
-    private ListView<String> trList = new ListView<String>();
+    private ListView<Transaction> trList = new ListView<Transaction>();
 
     @FXML
     private DatePicker trDate;
@@ -48,84 +55,52 @@ public class Controller implements Initializable {
     private Button trClear, trSave, preferences, about, downloadCSV, uploadCSV;
 
     @FXML
+    private void handleUploadCSV(ActionEvent event) {
+        File file;
+        FileChooser fileChooser = new FileChooser();
+        String path = System.getProperty("user.home");
+        fileChooser.setInitialDirectory(new File(path));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        if ((file = fileChooser.showOpenDialog(null)) != null) {
+            try {
+                Transaction.readFile(file, Transaction.getCSVOrder());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
     private void handleSaveButton(ActionEvent event) {
+        String description, category;
+        double funds;
+        Date date;
+
         // check if all fields are filled
-        if (trDescription.getText().length() == 0 || trFunds.getText().length() == 0 || trDate.getValue() == null
-                || toggleGroup.getSelectedToggle() == null || !isValidDouble(trFunds.getText())
-                || trDate.getValue().isAfter(LocalDate.now())) {
-            if (trDescription.getText().length() == 0) {
-                trDescription.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            }
-            if (trFunds.getText().length() == 0) {
-                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            }
-            if (trDate.getValue() == null || trDate.getValue().isAfter(LocalDate.now())) {
-                trDate.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            }
-            if (toggleGroup.getSelectedToggle() == null) {
-                trIncome.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-                trExpense.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            }
-            if (!isValidDouble(trFunds.getText())) {
-                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            }
+        if (!validateTrForm())
+            return;
 
-            return; // stops save
-        }
+        description = trDescription.getText(); // can be blank
 
-        // ********** save transaction **********
-        String description = trDescription.getText();
-        double funds = Double.parseDouble(trFunds.getText());
-        if (trExpense.isSelected()) {
-            funds *= -1;
-        }
-        Date date = Date.from(trDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        String category = trCategory.getValue().toString();
+        funds = Double.parseDouble(trFunds.getText());
+        funds = trExpense.isSelected() ? -1 * funds : funds;
 
-        try { // add transaction to backend.Transaction
-            new backend.Transaction(date, description, funds, category);
+        date = Date.from(trDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            // refresh list view
-            String[] list = backend.Transaction.TransactionStrArr();
-            trList.getItems().clear();
-            trList.getItems().addAll(list);
-            trList.refresh();
+        category = trCategory.getValue().toString();
 
-            // bar chart
-            barChart.setAnimated(false); // disable clearing animation
-            barChart.getData().clear();
-            barChart.setAnimated(true);
-            XYChart.Series[] series = backend.Charts.getBarSeries();
-            barChart.getData().addAll(series[0], series[1]);
+        try { // add transaction to Transaction
+            new Transaction(date, description, funds, category);
 
+            refreshListView(); // listView
+            initializeBarChart(); // bar chart
             initializePieChart(); // pie chart
-
             handleClearButton(event); // clear form fields
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    // only strictly positive doubles
-    private boolean isValidDouble(String value) {
-        double val = -1;
-        try {
-            val = Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-        }
-        return val > 0;
-    }
-
-    // changes Category comboBox based on radio button selection
-    private void updateCategoryOnSelection() {
-        trCategory.getItems().clear(); // clear comboBox
-        if (trIncome.isSelected()) {
-            trCategory.getItems().addAll(backend.Category.getIncomeNames());
-        } else {
-            trCategory.getItems().addAll(backend.Category.getExpenseNames());
-        }
-        trCategory.setValue("other"); // placeholder/default value
-    }
+    } // handleSaveButton()
 
     @FXML
     private void handleClearButton(ActionEvent event) {
@@ -149,41 +124,53 @@ public class Controller implements Initializable {
         App.setRoot("Preferences");
     }
 
-    public void initializeBarChart() {
-        // bar chart
-        XYChart.Series[] series = backend.Charts.getBarSeries();
-        barChart.getData().addAll(series[0], series[1]); // 0 is fundsIn, 1 is fundsOut
-
-    }
-
-    public void initializePieChart() {
-        pieChart.getData().clear();
-        pieChart.getData().addAll(backend.Charts.getPieData());
+    @FXML
+    private void switchToAbout() throws IOException {
+        App.setRoot("About");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeBarChart(); // bar chart
         initializePieChart(); // pie chart
+        initializeListView(); // listView
+        initializeTrForm(); // transaction form
+    } // initialize()
 
-        // listView
-        String[] list = backend.Transaction.TransactionStrArr();
+    public static void shutdown() {
+        try { // save to csv
+            Transaction.saveToFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    // ********** initialize methods **********
+
+    private void initializeBarChart() {
+        barChart.setAnimated(false); // disable clearing animation
+        barChart.getData().clear();
+        barChart.setAnimated(true);
+        XYChart.Series[] series = Charts.getBarSeries(); // 0 is fundsIn, 1 is fundsOut
+        barChart.getData().addAll(series[0], series[1]);
+    }
+
+    private void initializePieChart() {
+        pieChart.getData().clear();
+        pieChart.getData().addAll(Charts.getPieData());
+    }
+
+    private void initializeListView() {
+        Transaction[] list = Transaction.getTransactions();
         trList.getItems().addAll(list);
+    }
 
-        // ********** transaction form **********
+    private void initializeTrForm() {
+
         trFunds.textProperty().addListener((observable, oldValue, newValue) -> {
             if (isValidDouble(newValue)) {
                 trFunds.setStyle(""); // Valid input, clear any custom styles
             } else {
-                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;"); // Invalid input, show error
-                                                                                     // style
-            }
-        });
-        trDescription.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() == 0) {
-                trDescription.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-            } else {
-                trDescription.setStyle("");
+                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;"); // Invalid input, show error style
             }
         });
 
@@ -195,23 +182,62 @@ public class Controller implements Initializable {
             }
         });
 
-        trExpense.setSelected(true); // expense toggled by default
-
         // update category based on radio buttons
         trIncome.setOnAction(event -> updateCategoryOnSelection());
         trExpense.setOnAction(event -> updateCategoryOnSelection());
 
-        // backend.Category.initialize();
-        trCategory.getItems().addAll(backend.Category.getExpenseNames()); // expense by default
+        trCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
         trCategory.setValue("other");
 
-    } // initialize()
+    }
 
-    public static void shutdown() {
-        try { // save to csv
-            backend.Transaction.saveToFile();
-        } catch (Exception e) {
-            e.printStackTrace();
+    // ********** helper methods **********
+
+    // only strictly positive doubles
+    private boolean isValidDouble(String value) {
+        double val = -1;
+        try {
+            val = Double.parseDouble(value);
+        } catch (NumberFormatException e) {
         }
+        return val > 0;
+    }
+
+    // changes Category comboBox based on radio button selection
+    private void updateCategoryOnSelection() {
+        trCategory.getItems().clear(); // clear comboBox
+        trCategory.getItems().addAll(Category.getCategoryNames(trExpense.isSelected()));
+        trCategory.setValue("other"); // placeholder/default value
+    }
+
+    private void refreshListView() {
+        Transaction[] list = Transaction.getTransactions();
+        trList.getItems().clear();
+        trList.getItems().addAll(list);
+        trList.refresh();
+    }
+
+    // validates transaction form and deals with red borders
+    private boolean validateTrForm() {
+        if (trFunds.getText().length() == 0 || trDate.getValue() == null
+                || toggleGroup.getSelectedToggle() == null || !isValidDouble(trFunds.getText())
+                || trDate.getValue().isAfter(LocalDate.now())) {
+            if (trFunds.getText().length() == 0) {
+                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            }
+            if (trDate.getValue() == null || trDate.getValue().isAfter(LocalDate.now())) {
+                trDate.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            }
+            if (toggleGroup.getSelectedToggle() == null) {
+                trIncome.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                trExpense.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            }
+            if (!isValidDouble(trFunds.getText())) {
+                trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            }
+
+            return false; // stops save
+        }
+        return true;
     }
 } // Controller class
