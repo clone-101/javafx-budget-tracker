@@ -136,10 +136,12 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Transaction.initializeCSV(); // initialize memory from csv
         initializeBarChart(); // bar chart
         initializePieChart(); // pie chart
         initializeListView(); // listView
         initializeTrForm(); // transaction form
+
     } // initialize()
 
     public static void shutdown() {

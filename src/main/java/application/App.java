@@ -38,6 +38,7 @@ public class App extends Application {
         System.exit(0);
     }
 
+    // refreshes main when returning from other pages
     static void setRoot(String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent root = loader.load();

@@ -51,8 +51,8 @@ public class PreferenceController implements Initializable {
 			return;
 		}
 		new Category(name, expense.isSelected());
-		createCategoryField.clear();
-		createCategoryField.setStyle("");
+		refresh(); // resets all fields
+
 	} // handleCreateCategory()
 
 	@FXML
@@ -65,10 +65,7 @@ public class PreferenceController implements Initializable {
 			return;
 		}
 		Category.delete(deleting.getName(), expense.isSelected());
-		deleteCategory.getItems().clear();
-		deleteCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
-
-		deleteCategory.setStyle("");
+		refresh(); // resets all fields
 
 	}// handleDeleteCategory()
 
@@ -150,10 +147,7 @@ public class PreferenceController implements Initializable {
 
 		Transaction.setCSVOrder(order); // sets order in Transaction
 
-		csvBox1.setValue(null);
-		csvBox2.setValue(null);
-		csvBox3.setValue(null);
-		csvBox4.setValue(null);
+		refresh(); // resets all fields
 	} // handleCSVPreferences()
 
 	@Override
@@ -168,6 +162,34 @@ public class PreferenceController implements Initializable {
 		initializeCSVPreferences();
 
 	} // initialize()
+
+	// used to refresh all fields after an action
+	private void refresh() {
+		// refresh category preferences
+		deleteCategory.getItems().clear();
+		deleteCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
+		createCategoryField.clear();
+		bulkAssignCategory.getItems().clear();
+		bulkAssignCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
+		bulkAssignDescription.setValue(null);
+		bulkAssignCategory.setValue(null);
+
+		// refresh csv preferences
+		csvBox1.setValue(null);
+		csvBox2.setValue(null);
+		csvBox3.setValue(null);
+		csvBox4.setValue(null);
+
+		// reset any red borders
+		createCategoryField.setStyle("");
+		deleteCategory.setStyle("");
+		bulkAssignDescription.setStyle("");
+		bulkAssignCategory.setStyle("");
+		csvBox1.setStyle("");
+		csvBox2.setStyle("");
+		csvBox3.setStyle("");
+		csvBox4.setStyle("");
+	}
 
 	// ************* initialization methods *************
 
@@ -191,6 +213,12 @@ public class PreferenceController implements Initializable {
 				createCategoryField.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
 			} else {
 				createCategoryField.setStyle("");
+			}
+		});
+
+		createCategoryField.setOnKeyPressed(event -> {
+			if (event.getCode().toString().equals("ENTER")) {
+				createCategoryBtn.fire();
 			}
 		});
 	} // initializeCreateCategory()
