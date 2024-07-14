@@ -99,7 +99,7 @@ public class Transaction {
 
 			try {
 				// max category length is 15 characters (including quotes)
-				if (lineArr[4].length() < 16) {
+				if (lineArr.length >= 5 && lineArr[4].length() < 16) {
 					String category = lineArr[4].replaceAll("\"", "");
 					new Transaction(date, lineArr[desID], fundsIn - fundsOut, category);
 				} else
@@ -212,7 +212,7 @@ public class Transaction {
 
 	// instance variables
 	private String description = "BLANK_DESCRIPTION";
-	private Category category = null;
+	private Category category;
 	private double fundsIn;
 	private double fundsOut;
 	private boolean isExpense;
