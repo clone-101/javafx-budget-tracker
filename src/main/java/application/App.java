@@ -24,6 +24,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("Main"));
         stage.getIcons().add(new Image(App.class.getResourceAsStream("icon.png")));
         stage.setResizable(false);
+        stage.setTitle("Budget Tracker");
         stage.setScene(scene);
         stage.show();
     }
@@ -38,7 +39,15 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        Parent root = loader.load();
+        if (fxml.equals("Main")) {
+            Controller controller = loader.getController();
+            controller.refresh();
+        }
+        // Parent root = loadFXML(fxml);
+
+        scene.setRoot(root);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

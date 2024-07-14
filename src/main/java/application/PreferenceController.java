@@ -34,7 +34,6 @@ public class PreferenceController implements Initializable {
 
 	@FXML // switch to application main page
 	private void switchToMain() throws IOException {
-		Controller.mainController.refreshListView();
 		App.setRoot("Main");
 	}
 
@@ -226,6 +225,13 @@ public class PreferenceController implements Initializable {
 
 	private void initializeCSVPreferences() {
 		String[] csvOrder = Transaction.getCSVOrderStr();
+		// clear comboBoxes
+		csvBox1.getItems().clear();
+		csvBox2.getItems().clear();
+		csvBox3.getItems().clear();
+		csvBox4.getItems().clear();
+
+		// add values to comboBoxes
 		csvBox1.getItems().addAll(csvOrder);
 		csvBox2.getItems().addAll(csvOrder);
 		csvBox3.getItems().addAll(csvOrder);

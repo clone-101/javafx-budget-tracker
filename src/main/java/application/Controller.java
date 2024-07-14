@@ -29,7 +29,6 @@ import javafx.stage.FileChooser;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class Controller implements Initializable {
-    public static Controller mainController;
     // for Category methods
     private static final boolean EXPENSE = true, INCOME = false;
 
@@ -152,6 +151,17 @@ public class Controller implements Initializable {
     }
     // ********** initialize methods **********
 
+    public void refresh() {
+        initializeBarChart(); // bar chart
+        initializePieChart(); // pie chart
+        refreshListView(); // listView
+
+        // clear form fields
+        trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        trFunds.clear();
+        trCategory.getItems().clear();
+    }
+
     private void initializeBarChart() {
         barChart.setAnimated(false); // disable clearing animation
         barChart.getData().clear();
@@ -167,6 +177,7 @@ public class Controller implements Initializable {
 
     private void initializeListView() {
         Transaction[] list = Transaction.getTransactions();
+        trList.getItems().clear();
         trList.getItems().addAll(list);
         trList.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE) {
@@ -185,6 +196,7 @@ public class Controller implements Initializable {
 
     private void initializeTrForm() {
 
+        trFunds.clear();
         trFunds.textProperty().addListener((observable, oldValue, newValue) -> {
             if (isValidDouble(newValue)) {
                 trFunds.setStyle(""); // Valid input, clear any custom styles
@@ -216,6 +228,7 @@ public class Controller implements Initializable {
         trIncome.setOnAction(event -> updateCategoryOnSelection());
         trExpense.setOnAction(event -> updateCategoryOnSelection());
 
+        trCategory.getItems().clear();
         trCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
         trCategory.setValue("other");
         trCategory.setOnKeyPressed(event -> {
