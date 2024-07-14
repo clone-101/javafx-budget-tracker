@@ -258,8 +258,6 @@ public class Transaction {
 			}
 			transactions = temp;
 		}
-		// ordered insertion for new element
-		trInsert(trCount++, transactions, this);
 
 		// category
 		if (category == null) {
@@ -267,6 +265,13 @@ public class Transaction {
 		}
 		this.category = Category.get(category, isExpense);
 		this.category.addDescription(this.description);
+		for (Transaction tr : transactions) {
+			if (tr != null && tr.equals(this)) {
+				return;
+			}
+		}
+		// ordered insertion for new element
+		trInsert(trCount++, transactions, this);
 	} // constructor
 
 	// PFA deletion for transactions array

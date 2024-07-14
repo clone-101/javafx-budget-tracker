@@ -76,12 +76,12 @@ public class Category {
 	}
 
 	// returns all descriptions for a category
-	public static String[] getDescriptions() {
+	public static String[] getDescriptions(boolean type) {
 		ArrayList<String> descriptions = new ArrayList<>();
 		for (Transaction tr : Transaction.getTransactions()) {
 			if (tr == null)
-				break;
-			if (!descriptions.contains(tr.getDescription())) {
+				continue;
+			if (tr.isExpense() == type && !descriptions.contains(tr.getDescription())) {
 				descriptions.add(tr.getDescription());
 			}
 		}

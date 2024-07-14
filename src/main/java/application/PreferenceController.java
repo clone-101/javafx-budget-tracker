@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 public class PreferenceController implements Initializable {
+	// final variables for category type
+	private static final boolean EXPENSE = true, INCOME = false;
 
 	// ************* category variables *************
 	@FXML
@@ -198,14 +200,18 @@ public class PreferenceController implements Initializable {
 		expense.setOnAction(event -> {
 			deleteCategory.getItems().clear();
 			bulkAssignCategory.getItems().clear();
-			deleteCategory.getItems().addAll(Category.getCategoryNames(true));
-			bulkAssignCategory.getItems().addAll(Category.getCategoryNames(true));
+			bulkAssignDescription.getItems().clear();
+			deleteCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
+			bulkAssignCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
+			bulkAssignDescription.getItems().addAll(Category.getDescriptions(EXPENSE));
 		});
 		income.setOnAction(event -> {
 			deleteCategory.getItems().clear();
 			bulkAssignCategory.getItems().clear();
-			deleteCategory.getItems().addAll(Category.getCategoryNames(false));
-			bulkAssignCategory.getItems().addAll(Category.getCategoryNames(false));
+			bulkAssignDescription.getItems().clear();
+			deleteCategory.getItems().addAll(Category.getCategoryNames(INCOME));
+			bulkAssignCategory.getItems().addAll(Category.getCategoryNames(INCOME));
+			bulkAssignDescription.getItems().addAll(Category.getDescriptions(INCOME));
 		});
 	} // initializeChooseCategory()
 
@@ -242,7 +248,7 @@ public class PreferenceController implements Initializable {
 
 	private void initializeBulkAssign() {
 		bulkAssignDescription.getItems().clear();
-		bulkAssignDescription.getItems().addAll(Category.getDescriptions());
+		bulkAssignDescription.getItems().addAll(Category.getDescriptions(expense.isSelected()));
 		bulkAssignCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
 		// add listener
 		bulkAssignCategory.valueProperty().addListener((observable, oldValue, newValue) -> {
