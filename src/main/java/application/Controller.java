@@ -29,6 +29,7 @@ import javafx.stage.FileChooser;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class Controller implements Initializable {
+    public static Controller mainController;
     // for Category methods
     private static final boolean EXPENSE = true, INCOME = false;
 
@@ -65,10 +66,14 @@ public class Controller implements Initializable {
         if ((file = fileChooser.showOpenDialog(null)) != null) {
             try {
                 Transaction.readFile(file, Transaction.getCSVOrder());
+                refreshListView();
+                initializeBarChart();
+                initializePieChart();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
     }
 
     @FXML
@@ -187,12 +192,23 @@ public class Controller implements Initializable {
                 trFunds.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;"); // Invalid input, show error style
             }
         });
+        trFunds.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                trSave.fire();
+            }
+        });
 
+        trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         trDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.isAfter(LocalDate.now())) {
                 trDate.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
             } else {
                 trDate.setStyle("");
+            }
+        });
+        trDate.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                trSave.fire();
             }
         });
 
@@ -202,6 +218,11 @@ public class Controller implements Initializable {
 
         trCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
         trCategory.setValue("other");
+        trCategory.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                trSave.fire();
+            }
+        });
 
     }
 
@@ -224,7 +245,7 @@ public class Controller implements Initializable {
         trCategory.setValue("other"); // placeholder/default value
     }
 
-    private void refreshListView() {
+    public void refreshListView() {
         Transaction[] list = Transaction.getTransactions();
         trList.getItems().clear();
         trList.getItems().addAll(list);

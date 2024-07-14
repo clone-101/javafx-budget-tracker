@@ -34,6 +34,7 @@ public class PreferenceController implements Initializable {
 
 	@FXML // switch to application main page
 	private void switchToMain() throws IOException {
+		Controller.mainController.refreshListView();
 		App.setRoot("Main");
 	}
 
@@ -50,7 +51,6 @@ public class PreferenceController implements Initializable {
 			}
 			return;
 		}
-		createCategoryField.setStyle("");
 		new Category(name, expense.isSelected());
 		createCategoryField.clear();
 		createCategoryField.setStyle("");
@@ -64,12 +64,12 @@ public class PreferenceController implements Initializable {
 		if (deleting == null || deleting.equals(other)) {
 			deleteCategory.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
 			return;
-		} else {
-			deleteCategory.setStyle("");
 		}
 		Category.delete(deleting.getName(), expense.isSelected());
 		deleteCategory.getItems().clear();
 		deleteCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
+
+		deleteCategory.setStyle("");
 
 	}// handleDeleteCategory()
 
@@ -87,15 +87,15 @@ public class PreferenceController implements Initializable {
 			return; // stops if not all fields are filled/incorrect values
 		}
 		// reset style if correctly filled
-		bulkAssignCategory.setStyle("");
-		bulkAssignDescription.setStyle("");
-
 		String description = bulkAssignDescription.getValue();
 		Category category = Category.get(bulkAssignCategory.getValue(), expense.isSelected());
 
 		Category.bulkReassign(description, category);
 		bulkAssignDescription.setValue(null);
 		bulkAssignCategory.setValue(null);
+
+		bulkAssignCategory.setStyle("");
+		bulkAssignDescription.setStyle("");
 
 	} // handleBulkAssign()
 
@@ -174,7 +174,6 @@ public class PreferenceController implements Initializable {
 
 	// set category type for comboBoxes
 	private void initializeChooseCategory() {
-		deleteCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
 		expense.setOnAction(event -> {
 			deleteCategory.getItems().clear();
 			deleteCategory.getItems().addAll(Category.getCategoryNames(true));
@@ -198,6 +197,7 @@ public class PreferenceController implements Initializable {
 	} // initializeCreateCategory()
 
 	private void initializeDeleteCategory() {
+		deleteCategory.getItems().clear();
 		deleteCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
 		// add listener
 		deleteCategory.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -210,6 +210,7 @@ public class PreferenceController implements Initializable {
 	} // initializeDeleteCategory()
 
 	private void initializeBulkAssign() {
+		bulkAssignDescription.getItems().clear();
 		bulkAssignDescription.getItems().addAll(Category.getDescriptions());
 		bulkAssignCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
 		// add listener
@@ -218,6 +219,7 @@ public class PreferenceController implements Initializable {
 				bulkAssignCategory.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
 			} else {
 				bulkAssignCategory.setStyle("");
+
 			}
 		});
 	} // initializeBulkAssign()

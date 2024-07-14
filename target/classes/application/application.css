@@ -80,37 +80,48 @@
   -fx-background-color: transparent;
 }
 .data0.chart-pie {
-  -fx-pie-color: #264653;
+  /* -fx-pie-color: #264653; */
+  -fx-pie-color: -fx-button-color;
 }
 .data1.chart-pie {
-  -fx-pie-color: #e76f51;
+  /* -fx-pie-color: #e76f51; */
+  -fx-pie-color: #ee9b00;
 }
 .data2.chart-pie {
-  -fx-pie-color: #287271;
+  /* -fx-pie-color: #287271; */
+  -fx-pie-color: #e9d8a6;
 }
 .data3.chart-pie {
-  -fx-pie-color: #ee8959;
+  /* -fx-pie-color: #ee8959; */
+  -fx-pie-color: #ca6702;
 }
 .data4.chart-pie {
-  -fx-pie-color: #2a9d8f;
+  /* -fx-pie-color: #2a9d8f; */
+  -fx-pie-color: #94d2bd;
 }
 .data5.chart-pie {
-  -fx-pie-color: #f4a261;
+  /* -fx-pie-color: #f4a261; */
+  -fx-pie-color: #bb3e03;
 }
 .data6.chart-pie {
-  -fx-pie-color: #8ab17d;
+  /* -fx-pie-color: #8ab17d; */
+  -fx-pie-color: #0a9396;
 }
 .data7.chart-pie {
-  -fx-pie-color: #efb366;
+  /* -fx-pie-color: #efb366; */
+  -fx-pie-color: #ae2012;
 }
 .data8.chart-pie {
-  -fx-pie-color: #8ab17d;
+  /* -fx-pie-color: #8ab17d; */
+  -fx-pie-color: #005f73;
 }
 .data9.chart-pie {
-  -fx-pie-color: #e9c46a;
+  /* -fx-pie-color: #e9c46a; */
+  -fx-pie-color: #9b2226;
 }
 .data10.chart-pie {
-  -fx-pie-color: #babb74;
+  /* -fx-pie-color: #babb74; */
+  -fx-pie-color: #001219;
 }
 /* Button */
 .button {
