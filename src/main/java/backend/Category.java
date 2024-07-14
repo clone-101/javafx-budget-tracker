@@ -65,6 +65,16 @@ public class Category {
 		return new Category(name, type);
 	}
 
+	public static void setCategories(String[] expense, boolean type) {
+		if (type) {
+
+			EXPENSE_CATEGORIES = new ArrayList<String>(Arrays.asList(expense));
+		} else {
+			INCOME_CATEGORIES = new ArrayList<String>(Arrays.asList(expense));
+		}
+		initialize();
+	}
+
 	// returns all descriptions for a category
 	public static String[] getDescriptions() {
 		ArrayList<String> descriptions = new ArrayList<>();

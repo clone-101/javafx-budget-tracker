@@ -1,5 +1,6 @@
 backend\Category.class
 test\Test.class
+backend\Preferences.class
 backend\Charts.class
 application\PreferenceController.class
 backend\Transaction.class

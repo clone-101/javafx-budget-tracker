@@ -197,11 +197,15 @@ public class PreferenceController implements Initializable {
 	private void initializeChooseCategory() {
 		expense.setOnAction(event -> {
 			deleteCategory.getItems().clear();
+			bulkAssignCategory.getItems().clear();
 			deleteCategory.getItems().addAll(Category.getCategoryNames(true));
+			bulkAssignCategory.getItems().addAll(Category.getCategoryNames(true));
 		});
 		income.setOnAction(event -> {
 			deleteCategory.getItems().clear();
+			bulkAssignCategory.getItems().clear();
 			deleteCategory.getItems().addAll(Category.getCategoryNames(false));
+			bulkAssignCategory.getItems().addAll(Category.getCategoryNames(false));
 		});
 	} // initializeChooseCategory()
 

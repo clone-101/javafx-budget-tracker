@@ -16,6 +16,7 @@ public class Transaction {
 	private static int trCount = 0; // count for PFA
 	// csv order
 	private static int[] CSV_Order = { 0, 1, 2, 3 }; // date, description, fundsOut, fundsIn
+	private static String[] CSV_Ignore_Keywords = {};
 	// date format: MM/dd/yyyy
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -66,6 +67,10 @@ public class Transaction {
 		return false;
 	}
 
+	public static void setCSVIgnoreKeywords(String[] keywords) {
+		CSV_Ignore_Keywords = keywords;
+	}
+
 	// reads both content.csv and user csv
 	public static void readFile(File filename, int[] order) throws Exception {
 
@@ -95,6 +100,13 @@ public class Transaction {
 				fundsOut = Double.parseDouble(lineArr[fundOutID].replaceAll("\"", ""));
 			} catch (Exception e) {
 				fundsOut = 0;
+			}
+			// ignore keywrods
+			for (String keyword : CSV_Ignore_Keywords) {
+
+				if (lineArr[desID] != null && lineArr[desID].toLowerCase().trim().contains(keyword)) {
+					continue;
+				}
 			}
 
 			try {

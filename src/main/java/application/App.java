@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 
 import backend.Category;
+import backend.Preferences;
 import backend.Transaction;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Preferences.initialize(); // initialize preferences
         Category.initialize(); // initialize categories
         Transaction.initializeCSV(); // initialize memory from csv
 

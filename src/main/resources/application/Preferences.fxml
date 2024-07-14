@@ -171,7 +171,7 @@
                                     </Button>
                                  </children>
                               </FlowPane>
-                              <ListView fx:id="csvKeywordList" prefHeight="177.0" prefWidth="291.0" />
+                              <ListView fx:id="csvKeywordList" prefHeight="170.0" prefWidth="291.0" />
                            </children>
                         </FlowPane>
                      </children>
