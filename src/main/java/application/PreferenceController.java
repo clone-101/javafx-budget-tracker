@@ -88,7 +88,7 @@ public class PreferenceController implements Initializable {
 		String description = bulkAssignDescription.getValue();
 		Category category = Category.get(bulkAssignCategory.getValue(), expense.isSelected());
 
-		Category.bulkReassign(description, category);
+		Category.bulkReassign(description, category, expense.isSelected());
 		bulkAssignDescription.setValue(null);
 		bulkAssignCategory.setValue(null);
 
@@ -248,6 +248,7 @@ public class PreferenceController implements Initializable {
 
 	private void initializeBulkAssign() {
 		bulkAssignDescription.getItems().clear();
+		bulkAssignCategory.getItems().clear();
 		bulkAssignDescription.getItems().addAll(Category.getDescriptions(expense.isSelected()));
 		bulkAssignCategory.getItems().addAll(Category.getCategoryNames(expense.isSelected()));
 		// add listener
@@ -257,6 +258,13 @@ public class PreferenceController implements Initializable {
 			} else {
 				bulkAssignCategory.setStyle("");
 
+			}
+		});
+		bulkAssignDescription.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue == null) {
+				bulkAssignDescription.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+			} else {
+				bulkAssignDescription.setStyle("");
 			}
 		});
 	} // initializeBulkAssign()

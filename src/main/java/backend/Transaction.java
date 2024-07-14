@@ -30,18 +30,6 @@ public class Transaction {
 
 	// ***************static methods*****************
 
-	// returns array of all transactions toString
-	// public static String[] TransactionStrArr() {
-	// String[] arr = new String[trCount];
-	// int i = 0;
-	// for (Transaction tr : transactions) {
-	// if (tr != null)
-	// arr[i++] = tr.toString();
-
-	// }
-	// return arr;
-	// }
-
 	// returns array of all transactions excluding null (PFA)
 	public static Transaction[] getTransactions() {
 		Transaction[] excludeNull = new Transaction[trCount];
@@ -69,6 +57,10 @@ public class Transaction {
 
 	public static void setCSVIgnoreKeywords(String[] keywords) {
 		CSV_Ignore_Keywords = keywords;
+	}
+
+	public static String[] getCSVIgnoreKeywords() {
+		return CSV_Ignore_Keywords;
 	}
 
 	// reads both content.csv and user csv
@@ -111,7 +103,7 @@ public class Transaction {
 
 			try {
 				// max category length is 15 characters (including quotes)
-				if (lineArr.length >= 5 && lineArr[4].length() < 16) {
+				if (lineArr.length >= 5 && lineArr[4].indexOf("*") == -1) {
 					String category = lineArr[4].replaceAll("\"", "");
 					new Transaction(date, lineArr[desID], fundsIn - fundsOut, category);
 				} else

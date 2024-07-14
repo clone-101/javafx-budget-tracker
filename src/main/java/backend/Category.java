@@ -112,9 +112,9 @@ public class Category {
 	} // delete()
 
 	// bulk reassign
-	public static void bulkReassign(String description, Category category) {
+	public static void bulkReassign(String description, Category category, boolean type) {
 		for (Transaction tr : Transaction.getTransactions()) {
-			if (tr != null && tr.getDescription().equals(description)) {
+			if (tr != null && tr.getDescription().equals(description) && tr.isExpense() == type) {
 				tr.setCategory(category);
 			}
 		}

@@ -34,7 +34,7 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         Controller.shutdown(); // save to csv
-
+        Preferences.saveFile(); // save preferences
         // shutdown program
         super.stop();
         System.exit(0);
