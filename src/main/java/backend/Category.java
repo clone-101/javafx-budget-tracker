@@ -148,12 +148,16 @@ public class Category {
 			if (!expenseCategories.contains(this)) {
 				expenseCategories.add(this);
 				expenseNames.add(name);
+				expenseCategories.sort((a, b) -> a.compareTo(b));
+				expenseNames.sort((a, b) -> a.compareTo(b));
 			}
 			// else it is an income category
 		} else {
 			if (!incomeCategories.contains(this)) {
 				incomeCategories.add(this);
 				incomeNames.add(name);
+				incomeCategories.sort((a, b) -> a.compareTo(b));
+				incomeNames.sort((a, b) -> a.compareTo(b));
 			}
 		}
 	}
@@ -177,6 +181,10 @@ public class Category {
 	// equal based on name
 	public boolean equals(Category other) {
 		return name.equals(other.name) && type == other.type;
+	}
+
+	public int compareTo(Category other) {
+		return name.compareTo(other.name);
 	}
 
 	// :)

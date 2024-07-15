@@ -55,6 +55,20 @@ public class Transaction {
 		return false;
 	}
 
+	public static Transaction[] getTransactions(boolean isExpense, String... search) {
+		ArrayList<Transaction> temp = new ArrayList<>();
+		for (Transaction tr : transactions) {
+			if (tr != null && tr.isExpense() == isExpense) {
+				if (search.length == 0 || tr.getDescription().contains(search[0].toLowerCase())) {
+					temp.add(tr);
+
+				}
+			}
+		}
+		return temp.toArray(new Transaction[temp.size()]);
+
+	}
+
 	public static void setCSVIgnoreKeywords(String[] keywords) {
 		CSV_Ignore_Keywords = keywords;
 	}
@@ -329,15 +343,19 @@ public class Transaction {
 	// toString method
 	public String toString() {
 		double funds;
-		String catStr;
+		String catStr, descStr = description;
+		// String dateStr = FORMAT.format(date);
 		if (fundsIn > fundsOut)
 			funds = fundsIn;
 		else
 			funds = fundsOut * -1;
 
 		catStr = category.toString();
+		if (description.length() > 24) {
+			descStr = description.substring(0, 23) + "...";
+		}
 
-		return String.format("%s | %.2f | %s", catStr, funds, FORMAT.format(date));
+		return String.format("%s | %.2f | %s", catStr, funds, descStr);
 	} // toString
 
 }

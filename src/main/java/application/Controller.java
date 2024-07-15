@@ -31,6 +31,7 @@ import javafx.stage.FileChooser;
 public class Controller implements Initializable {
     // for Category methods
     private static final boolean EXPENSE = true, INCOME = false;
+    private static boolean trListToggle = true;
 
     @FXML
     private BarChart<String, Double> barChart;
@@ -42,7 +43,7 @@ public class Controller implements Initializable {
     @FXML
     private DatePicker trDate;
     @FXML
-    private TextField trDescription;
+    private TextField trDescription, searchTrList;
     @FXML
     private TextField trFunds;
     @FXML
@@ -53,7 +54,7 @@ public class Controller implements Initializable {
     private RadioButton trIncome, trExpense;
 
     @FXML
-    private Button trClear, trSave, preferences, about, downloadCSV, uploadCSV;
+    private Button trClear, trSave, preferences, about, downloadCSV, uploadCSV, trListToggleBtn;
 
     @FXML
     private void handleUploadCSV(ActionEvent event) {
@@ -72,6 +73,15 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
         }
+
+    }
+
+    @FXML
+    private void handleTrListToggle(ActionEvent event) {
+        trListToggle = !trListToggle;
+        trListToggleBtn.setText(trListToggle ? "expense" : "income");
+
+        refreshListView();
 
     }
 
@@ -112,9 +122,9 @@ public class Controller implements Initializable {
         trDescription.clear(); // clear description
         trFunds.clear(); // clear funds
         // set radio buttons
-        trIncome.setSelected(false);
+        // trIncome.setSelected(false);
         trExpense.setSelected(true);
-        trDate.setValue(null); // clear date
+        trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         trCategory.setValue("other"); // clear comboBox
 
         // clear red borders
@@ -179,7 +189,7 @@ public class Controller implements Initializable {
     }
 
     private void initializeListView() {
-        Transaction[] list = Transaction.getTransactions();
+        Transaction[] list = Transaction.getTransactions(trListToggle);
         trList.getItems().clear();
         trList.getItems().addAll(list);
         trList.setOnKeyPressed(event -> {
@@ -194,6 +204,10 @@ public class Controller implements Initializable {
                         trList.getSelectionModel().selectFirst();
                 }
             }
+        });
+        searchTrList.textProperty().addListener((observable, oldValue, newValue) -> {
+            trList.getItems().clear();
+            trList.getItems().addAll(Transaction.getTransactions(trListToggle, newValue));
         });
     }
 
@@ -262,7 +276,7 @@ public class Controller implements Initializable {
     }
 
     public void refreshListView() {
-        Transaction[] list = Transaction.getTransactions();
+        Transaction[] list = Transaction.getTransactions(trListToggle, searchTrList.getText());
         trList.getItems().clear();
         trList.getItems().addAll(list);
         trList.refresh();
