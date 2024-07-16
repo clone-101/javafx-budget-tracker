@@ -21,7 +21,7 @@ public class Transaction {
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	// working directory
-	public static final String WORKING_DIR = System.getProperty("user.dir");
+	public static String WORKING_DIR = System.getProperty("user.dir");
 	public static final String CSV = "content.csv"; // application data file
 
 	// CSV column order defaults
@@ -29,6 +29,12 @@ public class Transaction {
 	private static final String[] CSV_ORDER_STR = { "Date", "Description", "Funds Out", "Funds In" };
 
 	// ***************static methods*****************
+	public static void chooseDirectory() {
+		if (System.getProperty("os.name").toLowerCase().contains("mac"))
+			WORKING_DIR = System.getProperty("user.home") + File.separator + "Budget Tracker";
+
+		// WORKING_DIR = System.getProperty("user.home");
+	}
 
 	// returns array of all transactions excluding null (PFA)
 	public static Transaction[] getTransactions() {

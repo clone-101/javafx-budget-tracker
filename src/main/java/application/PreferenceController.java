@@ -110,17 +110,6 @@ public class PreferenceController implements Initializable {
 
 	@FXML
 	private void handleListView(ActionEvent event) {
-		// Transaction tr = trList.getSelectionModel().getSelectedItem();
-		// if (tr != null && trListBox.getValue() != null) {
-		// Category category = Category.get(trListBox.getValue(), expense.isSelected());
-		// Category.bulkReassign(tr.getDescription(), category, expense.isSelected());
-		// Transaction[] list = Transaction.getTransactions(expense.isSelected(),
-		// searchTrList.getText());
-		// trList.getItems().clear();
-		// trList.getItems().addAll(list);
-		// trList.refresh();
-
-		// }
 
 		// allows for multiple selection
 		List<Transaction> selectedTransactions = trList.getSelectionModel().getSelectedItems();
