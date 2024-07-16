@@ -77,9 +77,10 @@ public class Category {
 
 	// returns all descriptions for a category
 	public static String[] getDescriptions(boolean type) {
+		Category category = get(DEFAULT, type);
 		ArrayList<String> descriptions = new ArrayList<>();
 		for (Transaction tr : Transaction.getTransactions()) {
-			if (tr == null)
+			if (tr == null || tr.getCategory() != category)
 				continue;
 			if (tr.isExpense() == type && !descriptions.contains(tr.getDescription())) {
 				descriptions.add(tr.getDescription());

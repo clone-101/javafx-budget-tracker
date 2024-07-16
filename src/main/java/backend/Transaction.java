@@ -61,7 +61,6 @@ public class Transaction {
 			if (tr != null && tr.isExpense() == isExpense) {
 				if (search.length == 0 || tr.getDescription().contains(search[0].toLowerCase())) {
 					temp.add(tr);
-
 				}
 			}
 		}

@@ -200,6 +200,7 @@ public class Controller implements Initializable {
                     refreshListView();
                     initializeBarChart();
                     initializePieChart();
+                    Transaction.saveToFile();
                     if (!trList.getItems().isEmpty())
                         trList.getSelectionModel().selectFirst();
                 }
@@ -275,7 +276,7 @@ public class Controller implements Initializable {
         trCategory.setValue("other"); // placeholder/default value
     }
 
-    public void refreshListView() {
+    private void refreshListView() {
         Transaction[] list = Transaction.getTransactions(trListToggle, searchTrList.getText());
         trList.getItems().clear();
         trList.getItems().addAll(list);
