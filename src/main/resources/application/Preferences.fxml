@@ -76,12 +76,14 @@
                      <children>
                         <ComboBox fx:id="bulkAssignDescription" editable="true" prefHeight="23.0" prefWidth="405.0" promptText="description" />
                         <Pane prefHeight="8.0" prefWidth="351.0" />
-                        <ComboBox fx:id="bulkAssignCategory" editable="true" prefHeight="23.0" prefWidth="297.0" promptText="category" />
-                        <Pane layoutX="118.0" layoutY="112.0" prefHeight="15.0" prefWidth="13.0" />
+                        <ComboBox fx:id="bulkAssignCategory" editable="true" prefHeight="23.0" prefWidth="300.0" promptText="category" />
                         <Button fx:id="bulkAssignBtn" mnemonicParsing="false" onAction="#handleBulkAssign" prefHeight="23.0" text="Reassign">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <FlowPane.margin>
+                              <Insets left="10.0" />
+                           </FlowPane.margin>
                         </Button>
                      </children>
                   </FlowPane>
@@ -125,7 +127,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="-Infinity" orientation="VERTICAL" prefHeight="211.0" prefWidth="471.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="-Infinity" orientation="VERTICAL" prefHeight="211.0" prefWidth="294.0">
                      <children>
                         <Label prefWidth="145.0" text="Column Order">
                            <font>
@@ -134,11 +136,11 @@
                         </Label>
                         <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="253.0">
                            <children>
-                              <Label text="Column 1:" />
+                              <Label prefHeight="15.0" prefWidth="67.0" text="Column 1:" />
                               <ComboBox fx:id="csvBox1" editable="true" prefHeight="23.0" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="297.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="253.0">
                            <children>
                               <Label text="Column 2:" />
                               <ComboBox fx:id="csvBox2" editable="true" prefWidth="231.0" />
@@ -150,7 +152,7 @@
                               <ComboBox fx:id="csvBox3" editable="true" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="297.0">
+                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="275.0">
                            <children>
                               <Label text="Column 4:" />
                               <ComboBox fx:id="csvBox4" editable="true" prefWidth="231.0" />
@@ -163,7 +165,7 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="-Infinity" orientation="VERTICAL" prefHeight="263.0" prefWidth="453.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="-Infinity" orientation="VERTICAL" prefHeight="263.0" prefWidth="313.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="292.0" text="Ignore Entries">
                            <font>
