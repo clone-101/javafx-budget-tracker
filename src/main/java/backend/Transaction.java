@@ -234,7 +234,7 @@ public class Transaction {
 	// ***************instance methods*****************
 
 	// instance variables
-	private String description = "BLANK_DESCRIPTION";
+	private String description = "blank_description";
 	private Category category;
 	private double fundsIn;
 	private double fundsOut;
