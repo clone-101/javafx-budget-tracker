@@ -132,25 +132,25 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="253.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="253.0">
                            <children>
                               <Label text="Column 1:" />
                               <ComboBox fx:id="csvBox1" editable="true" prefHeight="23.0" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="253.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="297.0">
                            <children>
                               <Label text="Column 2:" />
                               <ComboBox fx:id="csvBox2" editable="true" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="253.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="253.0">
                            <children>
                               <Label text="Column 3:" />
                               <ComboBox fx:id="csvBox3" editable="true" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="297.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="297.0">
                            <children>
                               <Label text="Column 4:" />
                               <ComboBox fx:id="csvBox4" editable="true" prefWidth="231.0" />
