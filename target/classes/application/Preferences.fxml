@@ -18,7 +18,7 @@
    <children>
       <HBox prefHeight="535.0" prefWidth="955.0">
          <children>
-            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="535.0" prefWidth="482.0">
+            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="535.0" prefWidth="690.0">
                <children>
                   <Label text="Categories">
                      <font>
@@ -43,7 +43,7 @@
                   </Label>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="46.0" prefWidth="455.0">
                      <children>
-                        <TextField fx:id="createCategoryField" prefHeight="23.0" prefWidth="82.0">
+                        <TextField fx:id="createCategoryField" prefHeight="23.0" prefWidth="82.0" promptText="name">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -85,17 +85,17 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="264.0" prefWidth="455.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="283.0" prefWidth="453.0">
                      <children>
                         <Label prefHeight="28.0" prefWidth="190.0" text="Assign by Transaction">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="404.0">
+                        <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="405.0">
                            <children>
                               <Label text="search: " />
-                              <TextField fx:id="searchTrList" prefHeight="23.0" prefWidth="345.0" promptText="description" />
+                              <TextField fx:id="searchTrList" prefHeight="26.0" prefWidth="347.0" promptText="description" />
                            </children>
                         </FlowPane>
                         <ListView fx:id="trList" prefHeight="167.0" prefWidth="404.0" />
@@ -112,45 +112,45 @@
                      </children></FlowPane>
                </children>
                <padding>
-                  <Insets top="25.0" />
+                  <Insets top="20.0" />
                </padding>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </FlowPane>
-            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="535.0" prefWidth="475.0">
+            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="-Infinity" orientation="VERTICAL" prefHeight="535.0" prefWidth="469.0">
                <children>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="85.0" text="CSV">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="201.0" prefWidth="459.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="214.0" prefWidth="593.0">
                      <children>
                         <Label prefWidth="145.0" text="Column Order">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="253.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="253.0">
                            <children>
                               <Label text="Column 1:" />
                               <ComboBox fx:id="csvBox1" editable="true" prefHeight="23.0" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="253.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="297.0">
                            <children>
                               <Label text="Column 2:" />
                               <ComboBox fx:id="csvBox2" editable="true" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="253.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="253.0">
                            <children>
                               <Label text="Column 3:" />
                               <ComboBox fx:id="csvBox3" editable="true" prefWidth="231.0" />
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="CENTER" prefHeight="38.0" prefWidth="297.0">
+                        <FlowPane alignment="CENTER" prefHeight="36.0" prefWidth="297.0">
                            <children>
                               <Label text="Column 4:" />
                               <ComboBox fx:id="csvBox4" editable="true" prefWidth="231.0" />
@@ -163,7 +163,7 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="239.0" prefWidth="292.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="263.0" prefWidth="540.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="292.0" text="Ignore Entries">
                            <font>
@@ -189,7 +189,7 @@
                   </FlowPane>
                </children>
                <padding>
-                  <Insets top="25.0" />
+                  <Insets top="20.0" />
                </padding>
             </FlowPane>
          </children>

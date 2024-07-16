@@ -18,7 +18,7 @@
    <children>
       <HBox prefHeight="535.0" prefWidth="955.0">
          <children>
-            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="535.0" prefWidth="482.0">
+            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="535.0" prefWidth="690.0">
                <children>
                   <Label text="Categories">
                      <font>
@@ -43,7 +43,7 @@
                   </Label>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="46.0" prefWidth="455.0">
                      <children>
-                        <TextField fx:id="createCategoryField" prefHeight="23.0" prefWidth="82.0">
+                        <TextField fx:id="createCategoryField" prefHeight="23.0" prefWidth="82.0" promptText="name">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -85,17 +85,17 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="264.0" prefWidth="455.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="283.0" prefWidth="453.0">
                      <children>
                         <Label prefHeight="28.0" prefWidth="190.0" text="Assign by Transaction">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="404.0">
+                        <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="405.0">
                            <children>
                               <Label text="search: " />
-                              <TextField fx:id="searchTrList" prefHeight="26.0" prefWidth="360.0" promptText="description" />
+                              <TextField fx:id="searchTrList" prefHeight="26.0" prefWidth="347.0" promptText="description" />
                            </children>
                         </FlowPane>
                         <ListView fx:id="trList" prefHeight="167.0" prefWidth="404.0" />
@@ -118,7 +118,7 @@
                   <Insets />
                </opaqueInsets>
             </FlowPane>
-            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="535.0" prefWidth="475.0">
+            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="-Infinity" orientation="VERTICAL" prefHeight="535.0" prefWidth="469.0">
                <children>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="85.0" text="CSV">
                      <font>
@@ -163,7 +163,7 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="263.0" prefWidth="467.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="263.0" prefWidth="540.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="292.0" text="Ignore Entries">
                            <font>

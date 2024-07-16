@@ -55,7 +55,7 @@
   <children>
       <HBox prefHeight="233.0" prefWidth="955.0">
          <children>
-            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="280.0" prefWidth="933.0" verticalGridLinesVisible="false">
+            <BarChart fx:id="barChart" barGap="1.0" legendSide="RIGHT" prefHeight="203.0" prefWidth="957.0" verticalGridLinesVisible="false">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -65,22 +65,22 @@
             </BarChart>
          </children>
       </HBox>
-      <HBox prefHeight="300.0" prefWidth="955.0">
+      <HBox prefHeight="367.0" prefWidth="955.0">
          <children>
-            <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="300.0" prefWidth="255.0">
+            <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="338.0" prefWidth="255.0">
                <children>
-                  <Label contentDisplay="CENTER" text="Add Transaction">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="208.0" text="Add Transaction">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                   <Label text="Date" />
                   <DatePicker fx:id="trDate" prefHeight="25.0" prefWidth="207.0" />
                   <Label text="Description" />
-                  <TextField fx:id="trDescription" prefWidth="175.0" />
+                  <TextField fx:id="trDescription" minWidth="-Infinity" prefHeight="23.0" prefWidth="157.0" />
                   <Label text="Funds" />
-                  <TextField fx:id="trFunds" />
-                  <FlowPane alignment="CENTER" prefHeight="34.0" prefWidth="208.0">
+                  <TextField fx:id="trFunds" minWidth="-Infinity" prefHeight="23.0" prefWidth="181.0" />
+                  <FlowPane alignment="CENTER" minWidth="-Infinity" prefHeight="34.0" prefWidth="191.0">
                      <children>
                         <RadioButton fx:id="trIncome" mnemonicParsing="false" text="Income">
                            <toggleGroup>
@@ -90,8 +90,8 @@
                      </children>
                   </FlowPane>
                   <Label text="Category" />
-                  <ComboBox fx:id="trCategory" prefHeight="25.0" prefWidth="208.0" promptText="other" />
-                  <FlowPane alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="208.0">
+                  <ComboBox fx:id="trCategory" minWidth="-Infinity" prefHeight="25.0" prefWidth="208.0" promptText="other" />
+                  <FlowPane alignment="BOTTOM_CENTER" minWidth="-Infinity" prefHeight="33.0" prefWidth="197.0">
                      <children>
                         <Button fx:id="trClear" mnemonicParsing="false" onAction="#handleClearButton" text="Clear">
                            <font>
@@ -110,11 +110,11 @@
             </FlowPane>
             <FlowPane alignment="BOTTOM_CENTER" orientation="VERTICAL" prefHeight="300.0" prefWidth="372.0">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="30.0" prefWidth="305.0">
+                  <FlowPane alignment="CENTER_RIGHT" columnHalignment="CENTER" prefHeight="30.0" prefWidth="305.0">
                      <children>
-                        <Label text="search:" />
-                        <TextField fx:id="searchTrList" promptText="description" />
-                        <Button fx:id="trListToggleBtn" mnemonicParsing="false" onAction="#handleTrListToggle" prefHeight="22.0" prefWidth="109.0" text="expense">
+                        <Label text="search:  " />
+                        <TextField fx:id="searchTrList" prefHeight="23.0" prefWidth="136.0" promptText="description" />
+                        <Button fx:id="trListToggleBtn" mnemonicParsing="false" onAction="#handleTrListToggle" prefHeight="22.0" prefWidth="87.0" text="expense">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -124,10 +124,10 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <ListView fx:id="trList" editable="true" prefHeight="270.0" prefWidth="350.0" />
+                  <ListView fx:id="trList" editable="true" prefHeight="297.0" prefWidth="350.0" />
                </children>
             </FlowPane>
-            <PieChart fx:id="pieChart" legendVisible="false" prefHeight="300.0" prefWidth="396.0" title="Expenses (MTD)" />
+            <PieChart fx:id="pieChart" labelLineLength="3.0" legendVisible="false" prefHeight="300.0" prefWidth="396.0" title="Expenses (MTD)" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="BOTTOM_CENTER" prefHeight="32.0" prefWidth="955.0" spacing="5.0" VBox.vgrow="NEVER">
