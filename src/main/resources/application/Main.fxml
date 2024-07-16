@@ -65,9 +65,9 @@
             </BarChart>
          </children>
       </HBox>
-      <HBox prefHeight="300.0" prefWidth="955.0">
+      <HBox prefHeight="367.0" prefWidth="955.0">
          <children>
-            <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="300.0" prefWidth="255.0">
+            <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="322.0" prefWidth="278.0">
                <children>
                   <Label contentDisplay="CENTER" text="Add Transaction">
                      <font>
@@ -112,7 +112,7 @@
                <children>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="30.0" prefWidth="305.0">
                      <children>
-                        <Label text="search:" />
+                        <Label text="search:  " />
                         <TextField fx:id="searchTrList" promptText="description" />
                         <Button fx:id="trListToggleBtn" mnemonicParsing="false" onAction="#handleTrListToggle" prefHeight="22.0" prefWidth="109.0" text="expense">
                            <opaqueInsets>

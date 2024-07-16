@@ -95,7 +95,7 @@
                         <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="404.0">
                            <children>
                               <Label text="search: " />
-                              <TextField fx:id="searchTrList" prefHeight="23.0" prefWidth="345.0" promptText="description" />
+                              <TextField fx:id="searchTrList" prefHeight="26.0" prefWidth="360.0" promptText="description" />
                            </children>
                         </FlowPane>
                         <ListView fx:id="trList" prefHeight="167.0" prefWidth="404.0" />
@@ -112,7 +112,7 @@
                      </children></FlowPane>
                </children>
                <padding>
-                  <Insets top="25.0" />
+                  <Insets top="20.0" />
                </padding>
                <opaqueInsets>
                   <Insets />
@@ -125,7 +125,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="201.0" prefWidth="459.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="214.0" prefWidth="593.0">
                      <children>
                         <Label prefWidth="145.0" text="Column Order">
                            <font>
@@ -163,7 +163,7 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="239.0" prefWidth="292.0">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="263.0" prefWidth="467.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="292.0" text="Ignore Entries">
                            <font>
@@ -189,7 +189,7 @@
                   </FlowPane>
                </children>
                <padding>
-                  <Insets top="25.0" />
+                  <Insets top="20.0" />
                </padding>
             </FlowPane>
          </children>
