@@ -360,12 +360,14 @@ public class PreferenceController implements Initializable {
 		trList.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.BACK_SPACE) {
 				Transaction tr = trList.getSelectionModel().getSelectedItem();
+				int index = trList.getSelectionModel().getSelectedIndex();
 				if (tr != null) {
 					tr.delete(tr);
 					refreshListView();
 					Transaction.saveToFile();
 					if (!trList.getItems().isEmpty())
-						trList.getSelectionModel().selectFirst();
+						trList.getSelectionModel().select(index);
+
 				}
 			} else if (event.getCode() == KeyCode.ENTER) {
 				trListBox.setValue(trListBox.getValue());
@@ -449,9 +451,12 @@ public class PreferenceController implements Initializable {
 		ignoreList.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.BACK_SPACE) {
 				String selected = ignoreList.getSelectionModel().getSelectedItem();
+				int index = ignoreList.getSelectionModel().getSelectedIndex();
 				if (selected != null) {
 					Transaction.removeIgnoreKeyword(selected);
 					refreshIgnoreEntries();
+					if (!ignoreList.getItems().isEmpty())
+						ignoreList.getSelectionModel().select(index);
 				}
 			}
 		});

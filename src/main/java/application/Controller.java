@@ -195,6 +195,7 @@ public class Controller implements Initializable {
         trList.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE) {
                 Transaction tr = trList.getSelectionModel().getSelectedItem();
+                int index = trList.getSelectionModel().getSelectedIndex();
                 if (tr != null) {
                     tr.delete(tr);
                     refreshListView();
@@ -202,7 +203,7 @@ public class Controller implements Initializable {
                     initializePieChart();
                     Transaction.saveToFile();
                     if (!trList.getItems().isEmpty())
-                        trList.getSelectionModel().selectFirst();
+                        trList.getSelectionModel().select(index);
                 }
             }
         });
