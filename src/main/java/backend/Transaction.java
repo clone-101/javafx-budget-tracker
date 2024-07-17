@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.opencsv.CSVWriter;
@@ -16,7 +17,7 @@ public class Transaction {
 	private static int trCount = 0; // count for PFA
 	// csv order
 	private static int[] CSV_Order = { 0, 1, 2, 3 }; // date, description, fundsOut, fundsIn
-	private static String[] CSV_Ignore_Keywords = {};
+	private static ArrayList<String> CSV_Ignore_Keywords = new ArrayList<>();
 	// date format: MM/dd/yyyy
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -74,12 +75,20 @@ public class Transaction {
 
 	}
 
-	public static void setCSVIgnoreKeywords(String[] keywords) {
-		CSV_Ignore_Keywords = keywords;
+	public static void setIgnoreList(String[] keywords) {
+		CSV_Ignore_Keywords = new ArrayList<>(Arrays.asList(keywords));
 	}
 
-	public static String[] getCSVIgnoreKeywords() {
-		return CSV_Ignore_Keywords;
+	public static String[] getIgnoreList() {
+		return CSV_Ignore_Keywords.toArray(new String[CSV_Ignore_Keywords.size()]);
+	}
+
+	public static void addIgnoreKeyword(String keyword) {
+		CSV_Ignore_Keywords.add(keyword);
+	}
+
+	public static void removeIgnoreKeyword(String keyword) {
+		CSV_Ignore_Keywords.remove(keyword);
 	}
 
 	// reads both content.csv and user csv
@@ -97,6 +106,7 @@ public class Transaction {
 
 			Date date;
 			double fundsIn, fundsOut;
+			boolean keywordFound = false;
 			try {
 				date = FORMAT.parse(lineArr[dateID].replaceAll("\"", ""));
 			} catch (Exception e) {
@@ -112,14 +122,18 @@ public class Transaction {
 			} catch (Exception e) {
 				fundsOut = 0;
 			}
-			// ignore keywrods
+			// ignore keywords
 			for (String keyword : CSV_Ignore_Keywords) {
 
 				if (lineArr[desID] != null && lineArr[desID].toLowerCase().trim().contains(keyword)) {
-					continue;
-				}
+					keywordFound = true;
+					break;
+				} else
+					keywordFound = false;
 			}
 
+			if (keywordFound)
+				continue;
 			try {
 				// max category length is 15 characters (including quotes)
 				if (lineArr.length >= 5 && lineArr[4].indexOf("*") == -1) {

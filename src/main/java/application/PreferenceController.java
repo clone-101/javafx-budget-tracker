@@ -133,7 +133,13 @@ public class PreferenceController implements Initializable {
 	ComboBox<String> csvBox1, csvBox2, csvBox3, csvBox4;
 
 	@FXML
-	Button csvBtn;
+	TextField ignoreEntries;
+
+	@FXML
+	ListView<String> ignoreList;
+
+	@FXML
+	Button csvBtn, ignoreEntriesBtn;
 
 	// ************* csv methods *************
 	@FXML
@@ -182,27 +188,24 @@ public class PreferenceController implements Initializable {
 		refresh(); // resets all fields
 	} // handleCSVPreferences()
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// categories
-		initializeChooseCategory();
-		initializeCreateCategory();
-		initializeDeleteCategory();
-		initializeBulkAssign();
-		initializeListView();
+	@FXML
+	private void handleIgnoreEntries(ActionEvent event) {
+		String ignore = ignoreEntries.getText().trim().toLowerCase();
+		if (ignore.length() == 0) {
+			return;
+		}
+		Transaction.addIgnoreKeyword(ignore);
+		refreshIgnoreEntries();
+	} // handleIgnoreEntries()
 
-		// csv
-		initializeCSVPreferences();
-
-	} // initialize()
-
-	// used to refresh all fields after an action
+	// ************* refresh methods *************
 	private void refresh() {
 		refreshCreateCategory();
 		refreshDeleteCategory();
 		refreshBulkAssign();
 		refreshListView();
 		refreshCSV();
+		refreshIgnoreEntries();
 
 	}
 
@@ -253,7 +256,27 @@ public class PreferenceController implements Initializable {
 
 	}
 
+	private void refreshIgnoreEntries() {
+		ignoreEntries.clear();
+		ignoreList.getItems().clear();
+		ignoreList.getItems().addAll(Transaction.getIgnoreList());
+	}
+
 	// ************* initialization methods *************
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// categories
+		initializeChooseCategory();
+		initializeCreateCategory();
+		initializeDeleteCategory();
+		initializeBulkAssign();
+		initializeListView();
+
+		// csv
+		initializeCSVPreferences();
+		initializeIgnoreEntries();
+
+	} // initialize()
 
 	// set category type for comboBoxes
 	private void initializeChooseCategory() {
@@ -419,5 +442,25 @@ public class PreferenceController implements Initializable {
 		});
 
 	} // initializeCSVPreferences()
+
+	private void initializeIgnoreEntries() {
+		ignoreList.getItems().clear();
+		ignoreList.getItems().addAll(Transaction.getIgnoreList());
+		ignoreList.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.BACK_SPACE) {
+				String selected = ignoreList.getSelectionModel().getSelectedItem();
+				if (selected != null) {
+					Transaction.removeIgnoreKeyword(selected);
+					refreshIgnoreEntries();
+				}
+			}
+		});
+		ignoreEntries.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				ignoreEntriesBtn.fire();
+			}
+
+		});
+	} // initializeIgnoreEntries()
 
 } // PreferenceController

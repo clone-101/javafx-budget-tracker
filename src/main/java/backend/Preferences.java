@@ -112,12 +112,12 @@ public class Preferences {
 			keywords[i] = fileLine[i + 1].toLowerCase().trim();
 		}
 
-		Transaction.setCSVIgnoreKeywords(keywords);
+		Transaction.setIgnoreList(keywords);
 	}
 
 	private static String saveCSVKeywords() {
 		String csvString = "csv keywords:";
-		String[] keywords = Transaction.getCSVIgnoreKeywords();
+		String[] keywords = Transaction.getIgnoreList();
 		for (int i = 0; i < keywords.length; i++) {
 			csvString += keywords[i];
 			if (i < keywords.length - 1)

@@ -136,7 +136,7 @@
                         </Label>
                         <FlowPane alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="253.0">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="54.0" text="Column 1:" />
+                              <Label text="Column 1:" />
                               <ComboBox fx:id="csvBox1" editable="true" prefHeight="23.0" prefWidth="231.0" />
                            </children>
                         </FlowPane>
@@ -175,8 +175,8 @@
                         <FlowPane alignment="CENTER" prefHeight="42.0" prefWidth="291.0">
                            <children>
                               <Label prefHeight="15.0" prefWidth="72.0" text="keywords:" />
-                              <TextField fx:id="csvKeywordField" prefHeight="23.0" prefWidth="153.0" promptText="transfer" />
-                              <Button fx:id="csvKeywordBtn" mnemonicParsing="false" text="add">
+                              <TextField fx:id="ignoreEntries" prefHeight="23.0" prefWidth="153.0" promptText="transfer" />
+                              <Button fx:id="ignoreEntriesBtn" mnemonicParsing="false" onAction="#handleIgnoreEntries" text="add">
                                  <padding>
                                     <Insets left="10.0" />
                                  </padding>
@@ -186,7 +186,7 @@
                               </Button>
                            </children>
                         </FlowPane>
-                        <ListView fx:id="csvKeywordList" prefHeight="170.0" prefWidth="291.0" />
+                        <ListView fx:id="ignoreList" prefHeight="170.0" prefWidth="291.0" />
                      </children>
                   </FlowPane>
                </children>
