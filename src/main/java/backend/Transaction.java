@@ -32,9 +32,9 @@ public class Transaction {
 	// ***************static methods*****************
 	public static void chooseDirectory() {
 		if (System.getProperty("os.name").toLowerCase().contains("mac"))
-			WORKING_DIR = System.getProperty("user.home") + File.separator + "Budget Tracker" + File.separator + "data";
+			WORKING_DIR = System.getProperty("user.home") + File.separator + "Budget Tracker" + File.separator;
 		else
-			WORKING_DIR = System.getProperty("user.dir") + File.separator + "data";
+			WORKING_DIR = System.getProperty("user.dir") + File.separator;
 	}
 
 	// returns array of all transactions excluding null (PFA)

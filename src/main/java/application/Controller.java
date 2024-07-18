@@ -122,7 +122,6 @@ public class Controller implements Initializable {
         trDescription.clear(); // clear description
         trFunds.clear(); // clear funds
         // set radio buttons
-        // trIncome.setSelected(false);
         trExpense.setSelected(true);
         trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         trCategory.setValue("other"); // clear comboBox
@@ -173,6 +172,7 @@ public class Controller implements Initializable {
         trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         trFunds.clear();
         trCategory.getItems().clear();
+        trCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
     }
 
     private void initializeBarChart() {
