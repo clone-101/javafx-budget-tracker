@@ -186,7 +186,7 @@
                               </Button>
                            </children>
                         </FlowPane>
-                        <ListView fx:id="ignoreList" prefHeight="170.0" prefWidth="291.0" />
+                        <ListView fx:id="ignoreList" prefHeight="170.0" prefWidth="292.0" />
                      </children>
                   </FlowPane>
                </children>

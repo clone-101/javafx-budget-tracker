@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -139,7 +140,10 @@ public class PreferenceController implements Initializable {
 	ListView<String> ignoreList;
 
 	@FXML
-	Button csvBtn, ignoreEntriesBtn;
+	Label changeDirLabel;
+
+	@FXML
+	Button csvBtn, ignoreEntriesBtn, changeDirBtn;
 
 	// ************* csv methods *************
 	@FXML

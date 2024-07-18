@@ -22,7 +22,7 @@ public class Transaction {
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	// working directory
-	public static String WORKING_DIR = System.getProperty("user.dir");
+	public static String WORKING_DIR;
 	public static final String CSV = "content.csv"; // application data file
 
 	// CSV column order defaults
@@ -32,9 +32,9 @@ public class Transaction {
 	// ***************static methods*****************
 	public static void chooseDirectory() {
 		if (System.getProperty("os.name").toLowerCase().contains("mac"))
-			WORKING_DIR = System.getProperty("user.home") + File.separator + "Budget Tracker";
-
-		// WORKING_DIR = System.getProperty("user.home");
+			WORKING_DIR = System.getProperty("user.home") + File.separator + "Budget Tracker" + File.separator + "data";
+		else
+			WORKING_DIR = System.getProperty("user.dir") + File.separator + "data";
 	}
 
 	// returns array of all transactions excluding null (PFA)
@@ -153,9 +153,10 @@ public class Transaction {
 	public static void saveToFile() {
 		String filePath = WORKING_DIR + File.separator + CSV;
 
-		// Ensure the directory exists
 		File file = new File(filePath);
-		file.getParentFile().mkdirs();
+		if (!file.exists()) {
+			file.getParentFile().mkdirs();
+		}
 
 		try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
 			ArrayList<String[]> data = new ArrayList<>();

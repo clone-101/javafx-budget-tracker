@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Transaction.chooseDirectory();
+        Transaction.chooseDirectory();// choose directory based on mac/windows
         Preferences.initialize(); // initialize preferences
         Category.initialize(); // initialize categories
         Transaction.initializeCSV(); // initialize memory from csv
