@@ -56,6 +56,7 @@ public class Controller implements Initializable {
     @FXML
     private Button trClear, trSave, preferences, about, downloadCSV, uploadCSV, trListToggleBtn;
 
+    // ********** event handlers **********
     @FXML
     private void handleUploadCSV(ActionEvent event) {
         File file;
@@ -132,7 +133,7 @@ public class Controller implements Initializable {
         trDate.setStyle("");
     }
 
-    // switch scenes
+    // ********** switch scenes **********
     @FXML
     private void switchToPreferences() throws IOException {
         App.setRoot("Preferences");
@@ -142,6 +143,8 @@ public class Controller implements Initializable {
     private void switchToAbout() throws IOException {
         App.setRoot("About");
     }
+
+    // ********** initialize/shutdown methods **********
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -160,19 +163,6 @@ public class Controller implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    // ********** initialize methods **********
-
-    public void refresh() {
-        initializeBarChart(); // bar chart
-        initializePieChart(); // pie chart
-        refreshListView(); // listView
-
-        // clear form fields
-        trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        trFunds.clear();
-        trCategory.getItems().clear();
-        trCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
     }
 
     private void initializeBarChart() {
@@ -259,6 +249,17 @@ public class Controller implements Initializable {
     }
 
     // ********** helper methods **********
+    public void refresh() {
+        initializeBarChart(); // bar chart
+        initializePieChart(); // pie chart
+        refreshListView(); // listView
+
+        // clear form fields
+        trDate.setValue(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        trFunds.clear();
+        trCategory.getItems().clear();
+        trCategory.getItems().addAll(Category.getCategoryNames(EXPENSE));
+    }
 
     // only strictly positive doubles
     private boolean isValidDouble(String value) {
@@ -307,4 +308,5 @@ public class Controller implements Initializable {
         }
         return true;
     }
+
 } // Controller class
