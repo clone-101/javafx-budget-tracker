@@ -51,12 +51,6 @@ public class Preferences {
 
 			lineArr = line.split(":");
 			switch (lineArr[0]) {
-				case "theme":
-					// TODO: implement theme
-					break;
-				case "currency":
-					// TODO: implement currency
-					break;
 				case "csv order":
 					setCSVOrder(lineArr);
 					break;

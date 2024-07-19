@@ -23,7 +23,7 @@ public class Transaction {
 
 	// working directory
 	public static String WORKING_DIR;
-	public static final String CSV = "content.csv"; // application data file
+	private static final String CSV = "content.csv"; // application data file
 
 	// CSV column order defaults
 	private static final int[] DEFAULT_CSV_ORDER = { 0, 1, 2, 3 }; // for content.csv
@@ -75,6 +75,7 @@ public class Transaction {
 
 	}
 
+	// CSV ignore methods
 	public static void setIgnoreList(String[] keywords) {
 		CSV_Ignore_Keywords = new ArrayList<>(Arrays.asList(keywords));
 	}
