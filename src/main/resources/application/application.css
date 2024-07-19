@@ -85,6 +85,16 @@
 .pie-chart .chart-content .chart-plot-background {
   -fx-background-color: transparent;
 }
+.chart-pie-label-line {
+  -fx-stroke: white;
+  -fx-fill: white;
+}
+
+.chart-pie-label {
+  /*this is what you need for labels*/
+  -fx-fill: white;
+  -fx-font-size: 1em;
+}
 .data0.chart-pie {
   /* -fx-pie-color: #264653; */
   -fx-pie-color: #277da1;
